@@ -1,5 +1,6 @@
 package com.revature.GroupDP2;
 
+import com.revature.GroupDP2.model.Payment;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -13,6 +14,17 @@ public class GroupDp2Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GroupDp2Application.class, args);
+
+		Configuration configuration = new Configuration();
+		configuration.addAnnotatedClass(Payment.class);
+
+		SessionFactory sessionFactory = configuration.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+		transaction.commit();
+
+
+
 
 	}
 
