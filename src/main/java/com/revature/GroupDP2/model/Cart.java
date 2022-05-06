@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-public class Order {
+@Table(name="cart", schema="groupd")
+public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public class Order {
     private Timestamp orderInitialized;
 
 
-    public Order(Long userId, Integer productId, Integer quantity, Float price, Timestamp orderInitialized) {
+    public Cart(Long userId, Integer productId, Integer quantity, Float price, Timestamp orderInitialized) {
         this.userId = userId;
         this.productId = productId;
         this.quantity = quantity;
@@ -35,7 +36,7 @@ public class Order {
         this.orderInitialized = orderInitialized;
     }
 
-    public Order() {}
+    public Cart() {}
 
     public Integer getId() {return id;}
 

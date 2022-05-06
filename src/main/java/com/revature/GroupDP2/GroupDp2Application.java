@@ -1,6 +1,6 @@
 package com.revature.GroupDP2;
 
-import com.revature.GroupDP2.model.Category;
+import com.revature.GroupDP2.model.Cart;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -16,7 +16,7 @@ public class GroupDp2Application {
 		SpringApplication.run(GroupDp2Application.class, args);
 
 		Configuration configuration = new Configuration();
-		configuration.addAnnotatedClass(Category.class);
+		configuration.addAnnotatedClass(Cart.class);
 		//Add your class to configuration.addAnnotatedClass here
 
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
@@ -24,7 +24,6 @@ public class GroupDp2Application {
 		Transaction transaction = session.beginTransaction();
 
 		//Add your code here for testing purposes
-
 
 
 		transaction.commit();
