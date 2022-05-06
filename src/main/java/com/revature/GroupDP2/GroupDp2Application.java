@@ -31,7 +31,10 @@ public class GroupDp2Application {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		//Add your transactions in between
-    
+
+
+		//add your code here
+
 		transaction.commit();
 
 
