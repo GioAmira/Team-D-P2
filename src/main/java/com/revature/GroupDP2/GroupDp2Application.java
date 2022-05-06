@@ -1,8 +1,11 @@
 package com.revature.GroupDP2;
 
+
 import com.revature.GroupDP2.model.Product;
 import com.revature.GroupDP2.util.StorageManager;
 import com.revature.GroupDP2.util.TransactionManager;
+import com.revature.GroupDP2.model.Payment;
+import com.revature.GroupDP2.model.Cart;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,6 +22,7 @@ public class GroupDp2Application {
 	public static void main(String[] args) {
 		SpringApplication.run(GroupDp2Application.class, args);
 
+
 		StorageManager storageManager = new StorageManager();
 		storageManager.addAnnotatedClass(Product.class);
 
@@ -31,6 +35,18 @@ public class GroupDp2Application {
 
 		session.save(newProduct);
 		transactionManager.commitTransaction(tx);
+
+		Configuration configuration = new Configuration();
+
+		configuration.addAnnotatedClass(Payment.class);
+		configuration.addAnnotatedClass(Cart.class);
+		//Add your class to configuration.addAnnotatedClass here
+
+		SessionFactory sessionFactory = configuration.buildSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction transaction = session.beginTransaction();
+    
+		transaction.commit();
 
 
 	}
