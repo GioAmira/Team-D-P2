@@ -17,7 +17,7 @@ public class GroupDp2Application {
 
 		Configuration configuration = new Configuration();
 		configuration.addAnnotatedClass(Category.class);
-		//Add your class to configuration.addAnotatedClass here
+		//Add your class to configuration.addAnnotatedClass here
 
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session session = sessionFactory.openSession();
