@@ -18,16 +18,28 @@ public class UserRepository implements IUserRepository {
         this.session =session;
     }
 
+
     @Override
-    public void createOrUpdate(Object o) {
-    if(!(o instanceof User)){
-        return;//exception here
+    public void create(Object o) {
+        if(!(o instanceof User)){
+            return;//exception here
+        }
+        Transaction transaction = transactionManager.beginTransaction();
+        session.save(o);
+        transaction.commit();
     }
-    Transaction transaction = transactionManager.beginTransaction();
-    session.saveOrUpdate(o);
-    transaction.commit();
+
+    @Override
+    public void update(Object o) {
+        if(!(o instanceof User)){
+            return;//exception here
+        }
+        Transaction transaction = transactionManager.beginTransaction();
+        session.update(o);
+        transaction.commit();
     }
-//maybe we want to return an optional?
+
+    //maybe we want to return an optional?
     @Override
     public Object getById(int t) {
     TypedQuery<User> query = session.createQuery("FROM User WHERE id= :id",User.class);
