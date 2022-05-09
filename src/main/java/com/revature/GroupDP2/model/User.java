@@ -1,6 +1,7 @@
 package com.revature.GroupDP2.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="users",schema = "groupd")
@@ -31,6 +32,12 @@ public class User {
     private String state;
     @Column(name="zip_code")
     private String zipCode;
+    @Column(name="cart")
+    @OneToOne
+    private Cart cart;
+    @Column(name="payment_methods")
+    @OneToMany
+    private List<Payment> paymentMethods;
 
     public User(String userName, String password, boolean enabled, String firstName, String lastName, String email, String phone, String streetName, String city, String state, String zipCode) {
         this.userName = userName;
@@ -143,6 +150,21 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+    public List<Payment> getPaymentMethods() {
+        return paymentMethods;
+    }
+
+    public void setPaymentMethods(List<Payment> paymentMethods) {
+        this.paymentMethods = paymentMethods;
     }
 
     @Override
