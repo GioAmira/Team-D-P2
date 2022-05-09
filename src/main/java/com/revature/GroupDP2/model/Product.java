@@ -1,8 +1,7 @@
 package com.revature.GroupDP2.model;
 
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 
 import javax.persistence.*;
 
@@ -12,14 +11,12 @@ import javax.persistence.*;
 @Table(name="product",schema = "groupd")
 public class Product {
 
-
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long product_id;
 
     @Column(name = "product_name")
-
     private String productName;
 
     @Column(name = "description")
@@ -28,26 +25,19 @@ public class Product {
     @Column(name = "price")
     private String price;
 
+    @ManyToOne
+    private Category category;
 
-    @Column(name = "category_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryId;
-
-
-    public Product(Long productId, String productName, String description, String price, Long categoryId) {
-        this();
-        this.product_id = productId;
+    public Product(Category category, String productName, String description, String price) {
+        this.category = category;
         this.productName = productName;
         this.description = description;
         this.price = price;
-        this.categoryId = categoryId;
 
     }
-
     public Product() {
-        super();
-    }
 
+    }
 
     public Long getProduct_id() {
         return product_id;
@@ -81,33 +71,12 @@ public class Product {
         this.price = price;
     }
 
-    public Long getCategory_Id() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryId(Long category_Id) {
-        this.categoryId = category_Id;
-    }
-
-
-    public void setCatogoryId(String s) {
-    }
-
-    public void setId(int i) {
-
-    }
-
-    public void setProduct_status(Product ps) {
-
-    }
-
-    public boolean get() {
-        return false;
-    }
-
-    public Object getProduct() {
-        return null;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
-
 
