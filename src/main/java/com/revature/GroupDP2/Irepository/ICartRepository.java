@@ -1,2 +1,8 @@
-package com.revature.GroupDP2.Irepository;public interface ICartRepository {
+package com.revature.GroupDP2.Irepository;
+import com.revature.GroupDP2.model.Cart;
+
+public interface ICartRepository extends IGenericRepository<Cart>{
+
+    public Cart getByUserId(Long id);
+
 }
