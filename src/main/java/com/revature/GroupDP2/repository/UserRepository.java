@@ -42,9 +42,9 @@ public class UserRepository implements IUserRepository {
     //maybe we want to return an optional?
     @Override
     public Object getById(int t) {
-    TypedQuery<User> query = session.createQuery("FROM User WHERE id= :id",User.class);
-    query.setParameter("id",t);
-    return query.getSingleResult();
+        TypedQuery<User> query = session.createQuery("FROM User WHERE id= :id",User.class);
+        query.setParameter("id",t);
+        return query.getSingleResult();
     }
 
     @Override
