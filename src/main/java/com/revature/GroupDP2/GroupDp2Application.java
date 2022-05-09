@@ -52,6 +52,18 @@ public class GroupDp2Application {
 			//categoryRepository.delete(newCategory);
 			//System.out.println(categoryRepository.getById(1));
 			System.out.println(categoryRepository.getByCategoryName(newCategory));
+
+		 */
+
+		/*
+			Category rock = new Category("Rock");
+			Category pop = new Category("Pop");
+
+			rock.addProduct(new Product(rock,"Dark side of the moon", "Descr","100"));
+			rock.addProduct(new Product(pop,"The Sickness","Disturbed","150"));
+
+			session.save(rock);
+			session.save(pop);
 		 */
 
 

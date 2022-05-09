@@ -24,18 +24,20 @@ public class Product {
     @Column(name = "price")
     private String price;
 
+    //@GeneratedValue(strategy = GenerationType.IDENTITY) We Don't need this since it shouldn't be a auto increment
+    @ManyToOne
+    //private Long categoryId; we need to have a full object, can't connect just ids
+    private Category category;
 
-    @Column(name = "category_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryId;
 
-
-    public Product(Long productId, String productName, String description, String price, Long categoryId) {
-        this.product_id = productId;
+    //no need to provide product Id
+    public Product(Category category, String productName, String description, String price) {
+        //this.product_id = productId;
+        this.category = category;
         this.productName = productName;
         this.description = description;
         this.price = price;
-        this.categoryId = categoryId;
+        //this.categoryId = categoryId;
 
     }
     public Product() {
@@ -74,6 +76,7 @@ public class Product {
         this.price = price;
     }
 
+    /*
     public Long getCategory_Id() {
         return categoryId;
     }
@@ -81,8 +84,15 @@ public class Product {
     public void setCategoryId(Long category_Id) {
         this.categoryId = category_Id;
     }
+     */
 
+    public Category getCategory() {
+        return category;
+    }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
 }
 
 
