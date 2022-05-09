@@ -1,6 +1,9 @@
 package com.revature.GroupDP2.model;
 
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
 import javax.persistence.*;
 
 //Product class - corresponds to GroupDP2_product in db
@@ -16,6 +19,7 @@ public class Product {
     private Long product_id;
 
     @Column(name = "product_name")
+
     private String productName;
 
     @Column(name = "description")
@@ -31,6 +35,7 @@ public class Product {
 
 
     public Product(Long productId, String productName, String description, String price, Long categoryId) {
+        this();
         this.product_id = productId;
         this.productName = productName;
         this.description = description;
@@ -38,9 +43,11 @@ public class Product {
         this.categoryId = categoryId;
 
     }
-    public Product() {
 
+    public Product() {
+        super();
     }
+
 
     public Long getProduct_id() {
         return product_id;
@@ -83,6 +90,24 @@ public class Product {
     }
 
 
+    public void setCatogoryId(String s) {
+    }
+
+    public void setId(int i) {
+
+    }
+
+    public void setProduct_status(Product ps) {
+
+    }
+
+    public boolean get() {
+        return false;
+    }
+
+    public Object getProduct() {
+        return null;
+    }
 }
 
 

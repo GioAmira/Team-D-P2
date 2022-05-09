@@ -2,6 +2,7 @@ package com.revature.GroupDP2;
 
 
 import com.revature.GroupDP2.model.Product;
+import com.revature.GroupDP2.repository.ProductRepository;
 import com.revature.GroupDP2.util.StorageManager;
 import com.revature.GroupDP2.util.TransactionManager;
 import com.revature.GroupDP2.model.Payment;
@@ -10,6 +11,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -43,12 +46,12 @@ public class GroupDp2Application {
 		//Add your class to configuration.addAnnotatedClass here
 
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
-		Session session = sessionFactory.openSession();
+		session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
     
 		transaction.commit();
 
 
 	}
-
 }
+
