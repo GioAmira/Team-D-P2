@@ -3,8 +3,7 @@ package com.revature.GroupDP2.Irepository;
 import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
-public interface ICategoryRepository extends IGenericRepository{
+public interface ICategoryRepository<Category> extends IGenericRepository<Category>{
 
-    JSONObject getByCategoryName (JSONObject jsonObject);
-    JsonObject getByCategoryName (JsonObject jsonObject);
+    Category getByCategoryName (Category category);
 }
