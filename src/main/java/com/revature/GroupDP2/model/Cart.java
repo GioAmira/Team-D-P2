@@ -14,7 +14,7 @@ public class Cart {
     private Integer id;
 
     @Column(name="user_id")
-    private Long userId;
+    private Integer userId;
 
     @Column(name="cart_items")
     @OneToMany
@@ -23,7 +23,7 @@ public class Cart {
     @Column(name="order_initialized")
     private Timestamp orderInitialized;
 
-    public Cart(Long userId, List<Product> cartItems, Timestamp orderInitialized) {
+    public Cart(Integer userId, List<Product> cartItems, Timestamp orderInitialized) {
         this.userId = userId;
         this.cartItems = cartItems;
         this.orderInitialized = orderInitialized;
@@ -35,9 +35,9 @@ public class Cart {
 
     public void setId(Integer id) {this.id = id;}
 
-    public Long getUserId() {return userId;}
+    public Integer getUserId() {return userId;}
 
-    public void setUserId(Long userId) {this.userId = userId;}
+    public void setUserId(Integer userId) {this.userId = userId;}
 
     public List<Product> getCartItems() {return cartItems;}
 
