@@ -16,7 +16,7 @@ public class Category {
     private String categoryName;
 
     @Column
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
     List<Product> products = new ArrayList<>();
 
     public Category() {
