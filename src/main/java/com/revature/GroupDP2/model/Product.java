@@ -1,6 +1,8 @@
 package com.revature.GroupDP2.model;
 
 
+
+
 import javax.persistence.*;
 
 //Product class - corresponds to GroupDP2_product in db
@@ -77,5 +79,4 @@ public class Product {
         this.category = category;
     }
 }
-
 
