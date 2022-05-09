@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 
 import javax.persistence.TypedQuery;
 import java.util.List;
+import java.util.Optional;
 
 public class UserRepository implements IUserRepository {
     private TransactionManager transactionManager;
@@ -35,10 +36,10 @@ public class UserRepository implements IUserRepository {
 
     //maybe we want to return an optional?
     @Override
-    public User getById(int t) {
+    public Optional<User> getById(int t) {
         TypedQuery<User> query = session.createQuery("FROM User WHERE id= :id",User.class);
         query.setParameter("id",t);
-        return query.getSingleResult();
+        return Optional.ofNullable(query.getSingleResult());
     }
 
     @Override
@@ -49,9 +50,9 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public User getByUsername(String username) {
+    public Optional<User> getByUsername(String username) {
         TypedQuery<User> query = session.createQuery("FROM User WHERE userName= :userName",User.class);
         query.setParameter("userName",username);
-        return query.getSingleResult();
+        return Optional.ofNullable(query.getSingleResult());
     }
 }

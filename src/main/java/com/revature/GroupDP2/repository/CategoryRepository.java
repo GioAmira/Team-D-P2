@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.TypedQuery;
+import java.util.Optional;
 
 
 public class CategoryRepository implements ICategoryRepository<Category> {
@@ -61,7 +62,7 @@ public class CategoryRepository implements ICategoryRepository<Category> {
     }
 
     @Override
-    public Category getById(int t) {
+    public Optional<Category> getById(int t) {
         Category category = null;
         if (transactionManager != null && session != null){
             Transaction transaction = session.beginTransaction();
@@ -71,7 +72,7 @@ public class CategoryRepository implements ICategoryRepository<Category> {
         else{
             //throw an exception
         }
-        return category;
+        return Optional.ofNullable(category);
     }
 
     @Override

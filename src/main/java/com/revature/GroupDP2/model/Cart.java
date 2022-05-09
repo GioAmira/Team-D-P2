@@ -2,6 +2,7 @@ package com.revature.GroupDP2.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name="cart", schema="groupd")
@@ -15,11 +16,9 @@ public class Cart {
     @Column(name="user_id")
     private Long userId;
 
-    @Column(name="product_id")
-    private Integer productId;
-
-    @Column
-    private Integer quantity;
+    @Column(name="cart_item")
+    @OneToMany
+    private List<Integer> CartItem;
 
     @Column
     private Float price;

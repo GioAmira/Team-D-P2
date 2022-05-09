@@ -7,6 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.TypedQuery;
+import java.util.Optional;
 
 public class CartRepository implements ICartRepository {
 
@@ -33,10 +34,10 @@ public class CartRepository implements ICartRepository {
     }
 
     @Override
-    public Cart getById(int t) {
+    public Optional<Cart> getById(int t) {
         TypedQuery<Cart> query = session.createQuery("FROM Cart WHERE id = :id",Cart.class);
         query.setParameter("id",t);
-        return query.getSingleResult();
+        return Optional.ofNullable(query.getSingleResult());
     }
 
     @Override
@@ -45,13 +46,5 @@ public class CartRepository implements ICartRepository {
         session.delete(c);
         transaction.commit();
     }
-
-    @Override
-    public Cart getByUserId(Long l) {
-        TypedQuery<Cart> query = session.createQuery("FROM Cart WHERE userId = :userId",Cart.class);
-        query.setParameter("userId",l);
-        return query.getSingleResult();
-    }
-
 
 }
