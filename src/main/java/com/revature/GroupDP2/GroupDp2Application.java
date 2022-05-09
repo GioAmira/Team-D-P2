@@ -36,7 +36,7 @@ public class GroupDp2Application {
 
 
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
-		session = sessionFactory.openSession();
+		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		//Add your transactions in between
 

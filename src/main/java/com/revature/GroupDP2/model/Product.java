@@ -28,6 +28,9 @@ public class Product {
     @ManyToOne
     private Category category;
 
+    @ManyToOne
+    private Cart cart;
+
     public Product(Category category, String productName, String description, String price) {
         this.category = category;
         this.productName = productName;
