@@ -14,24 +14,18 @@ public class Cart {
     private Integer id;
 
     @Column(name="user_id")
-    private Long userId;
+    private Integer userId;
 
-    @Column(name="cart_item")
+    @Column(name="cart_items")
     @OneToMany
-    private List<> cartItems;
-
-    @Column
-    private Float price;
+    private List<Product> cartItems;
 
     @Column(name="order_initialized")
     private Timestamp orderInitialized;
 
-
-    public Cart(Long userId, Integer productId, Integer quantity, Float price, Timestamp orderInitialized) {
+    public Cart(Integer userId, List<Product> cartItems, Timestamp orderInitialized) {
         this.userId = userId;
-        this.productId = productId;
-        this.quantity = quantity;
-        this.price = price;
+        this.cartItems = cartItems;
         this.orderInitialized = orderInitialized;
     }
 
@@ -41,21 +35,13 @@ public class Cart {
 
     public void setId(Integer id) {this.id = id;}
 
-    public Long getUserId() {return userId;}
+    public Integer getUserId() {return userId;}
 
-    public void setUserId(Long userId) {this.userId = userId;}
+    public void setUserId(Integer userId) {this.userId = userId;}
 
-    public Integer getProductId() {return productId;}
+    public List<Product> getCartItems() {return cartItems;}
 
-    public void setProductId(Integer productId) {this.productId = productId;}
-
-    public Integer getQuantity() {return quantity;}
-
-    public void setQuantity(Integer quantity) {this.quantity = quantity;}
-
-    public Float getPrice() {return price;}
-
-    public void setPrice(Float price) {this.price = price;}
+    public void setCartItems(List<Product> cartItems) {this.cartItems = cartItems;}
 
     public Timestamp getOrderInitialized() {return orderInitialized;}
 

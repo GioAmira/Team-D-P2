@@ -3,6 +3,4 @@ import com.revature.GroupDP2.model.Cart;
 
 public interface ICartRepository extends IGenericRepository<Cart>{
 
-    public Cart getByUserId(Long id);
-
 }
