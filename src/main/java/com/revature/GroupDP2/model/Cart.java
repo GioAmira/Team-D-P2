@@ -18,7 +18,7 @@ public class Cart {
 
     @Column(name="cart_item")
     @OneToMany
-    private List<Integer> CartItem;
+    private List<> cartItems;
 
     @Column
     private Float price;

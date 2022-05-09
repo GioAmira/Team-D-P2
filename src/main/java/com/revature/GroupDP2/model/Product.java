@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Table(name="product",schema = "groupd")
 public class Product {
 
-
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,20 +23,14 @@ public class Product {
     @Column(name = "price")
     private String price;
 
-    //@GeneratedValue(strategy = GenerationType.IDENTITY) We Don't need this since it shouldn't be a auto increment
     @ManyToOne
-    //private Long categoryId; we need to have a full object, can't connect just ids
     private Category category;
 
-
-    //no need to provide product Id
     public Product(Category category, String productName, String description, String price) {
-        //this.product_id = productId;
         this.category = category;
         this.productName = productName;
         this.description = description;
         this.price = price;
-        //this.categoryId = categoryId;
 
     }
     public Product() {
@@ -75,16 +68,6 @@ public class Product {
     public void setPrice(String price) {
         this.price = price;
     }
-
-    /*
-    public Long getCategory_Id() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long category_Id) {
-        this.categoryId = category_Id;
-    }
-     */
 
     public Category getCategory() {
         return category;
