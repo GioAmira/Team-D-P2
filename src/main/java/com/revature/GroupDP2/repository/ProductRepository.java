@@ -7,9 +7,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.TypedQuery;
+import java.util.Optional;
 
 
-public abstract class ProductRepository implements IProductRepository {
+public class ProductRepository implements IProductRepository<Product> {
 
     private TransactionManager transactionManager;
     private Session session;
@@ -21,11 +22,10 @@ public abstract class ProductRepository implements IProductRepository {
 
 
     @Override
-    public Product create(Product p) {
+    public void create(Product p) {
         Transaction transaction = transactionManager.beginTransaction();
         session.save(p);
         transaction.commit();
-        return p;
     }
 
     @Override
@@ -36,27 +36,28 @@ public abstract class ProductRepository implements IProductRepository {
     }
 
     @Override
-    public Product getById(int t) {
+    public Optional<Product> getById(int t) {
         TypedQuery<Product> query = session.createQuery("FROM Product WHERE id = :id", Product.class);
         query.setParameter("id", t);
-        return query.getSingleResult();
+        return Optional.ofNullable(query.getSingleResult());
     }
 
     @Override
-    public Product delete(Product p) {
+    public void delete(Product p) {
         Transaction transaction = transactionManager.beginTransaction();
         session.delete(p);
         transaction.commit();
-        return p;
     }
 
     @Override
-    public Product getByCategoryId(Long id) {
+    public Product getByCategoryId(int id) {
         TypedQuery<Product> query = session.createQuery("FROM Product WHERE categoryId = :categoryId", Product.class);
         query.setParameter("categoryId", id);
         return query.getSingleResult();
     }
 
-
-
+    @Override
+    public Product getByUserId(int l) {
+        return null;
+    }
 }
