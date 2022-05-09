@@ -7,57 +7,67 @@ import java.time.LocalDate;
 @Table(name = "payment", schema = "groupd")
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
     @Column(name = "card_number")
-    private Integer cardNumber;
+    private String cardNumber;
 
     @Column(name = "expiration_date")
-    private LocalDate expirationDate;
+    private String expirationDate;
 
     @Column(name = "cvv_number")
-    private Integer cvv_number;
+    private Integer cvvNumber;
 
     public Payment() {
 
     }
 
-    public Payment(Integer cardNumber , LocalDate expirationDate , Integer cvv_number) {
+    public Payment(String cardNumber , String expirationDate , Integer cvvNumber) {
         this.cardNumber = cardNumber;
         this.expirationDate = expirationDate;
-        this.cvv_number = cvv_number;
+        this.cvvNumber = cvvNumber;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(Integer cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
-    public LocalDate getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(LocalDate expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
-    public Integer getCvv_number() {
-        return cvv_number;
+    public Integer getCvvNumber() {
+        return cvvNumber;
     }
 
-    public void setCvv_number(Integer cvv_number) {
-        this.cvv_number = cvv_number;
+    public void setCvvNumber(Integer cvvNumber) {
+        this.cvvNumber = cvvNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Payment{" +
+                "id=" + id +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", expirationDate='" + expirationDate + '\'' +
+                ", cvvNumber=" + cvvNumber +
+                '}';
     }
 }
