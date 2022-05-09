@@ -20,20 +20,14 @@ public class UserRepository implements IUserRepository {
 
 
     @Override
-    public void create(Object o) {
-        if(!(o instanceof User)){
-            return;//exception here
-        }
+    public void create(User o) {
         Transaction transaction = transactionManager.beginTransaction();
         session.save(o);
         transaction.commit();
     }
 
     @Override
-    public void update(Object o) {
-        if(!(o instanceof User)){
-            return;//exception here
-        }
+    public void update(User o) {
         Transaction transaction = transactionManager.beginTransaction();
         session.update(o);
         transaction.commit();
@@ -41,17 +35,14 @@ public class UserRepository implements IUserRepository {
 
     //maybe we want to return an optional?
     @Override
-    public Object getById(int t) {
+    public User getById(int t) {
         TypedQuery<User> query = session.createQuery("FROM User WHERE id= :id",User.class);
         query.setParameter("id",t);
         return query.getSingleResult();
     }
 
     @Override
-    public void delete(Object o) {
-        if(!(o instanceof User)){
-            return;//exception here
-        }
+    public void delete(User o) {
         Transaction transaction = transactionManager.beginTransaction();
         session.delete(o);
         transaction.commit();
