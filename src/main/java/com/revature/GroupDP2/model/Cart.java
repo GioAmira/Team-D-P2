@@ -2,6 +2,7 @@ package com.revature.GroupDP2.model;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,26 +11,26 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id", nullable = false)
+    @Column(name = "cart_id", nullable = false)
     private Integer id;
 
     @Column(name="user_id")
     private Integer userId;
 
     @Column(name="cart_items")
-    @OneToMany
-    private List<Product> cartItems;
+    @OneToMany(mappedBy = "cart", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    private List<Product> cartItems = new ArrayList<>();
 
     @Column(name="order_initialized")
-    private Timestamp orderInitialized;
+    private Timestamp cartInitialized;
 
-    public Cart(Integer userId, List<Product> cartItems, Timestamp orderInitialized) {
+    public Cart(Integer userId) {
         this.userId = userId;
-        this.cartItems = cartItems;
-        this.orderInitialized = orderInitialized;
     }
 
-    public Cart() {}
+    public Cart() {
+
+    }
 
     public Integer getId() {return id;}
 
@@ -43,7 +44,14 @@ public class Cart {
 
     public void setCartItems(List<Product> cartItems) {this.cartItems = cartItems;}
 
-    public Timestamp getOrderInitialized() {return orderInitialized;}
+    public Timestamp getOrderInitialized() {return cartInitialized;}
 
-    public void setOrderInitialized(Timestamp orderInitialized) {this.orderInitialized = orderInitialized;}
+    public void setOrderInitialized(Timestamp cartInitialized) {this.cartInitialized = cartInitialized;}
+
+    public void addCartItem(Product product){
+        cartItems.add(product);
+    }
+    public void deleteCartItem(Product product){
+        cartItems.remove(product);
+    }
 }
