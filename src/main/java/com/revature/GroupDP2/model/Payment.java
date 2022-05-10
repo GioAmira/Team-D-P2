@@ -7,7 +7,7 @@ import java.time.LocalDate;
 @Table(name = "payment", schema = "groupd")
 public class Payment {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "card_number")
@@ -50,14 +50,17 @@ public class Payment {
     }
 
     public void setExpirationDate(String expirationDate) {
+
         this.expirationDate = expirationDate;
     }
 
     public Integer getCvvNumber() {
+
         return cvvNumber;
     }
 
     public void setCvvNumber(Integer cvvNumber) {
+
         this.cvvNumber = cvvNumber;
     }
 

@@ -1,23 +1,30 @@
 package com.revature.GroupDP2.repository;
 
+import com.revature.GroupDP2.Irepository.IGenericRepository;
 import com.revature.GroupDP2.Irepository.IPaymentRepository;
 import com.revature.GroupDP2.model.Payment;
+import com.revature.GroupDP2.util.StorageManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class PaymentRepository implements IPaymentRepository<Payment> {
-    private final Session session;
-    String tableName;
+public class PaymentRepository implements IGenericRepository<Payment> {
 
-    public PaymentRepository(Session session , String tableName) {
-        this.session = session;
-        this.tableName = tableName;
+    private final StorageManager storageManager;
+    //private boolean running = false;
+    private Session session;
+
+
+    public PaymentRepository(StorageManager storageManager) {
+        this.storageManager = storageManager;
     }
 
     @Override
@@ -65,7 +72,16 @@ public class PaymentRepository implements IPaymentRepository<Payment> {
 
         return payment;
     }
+        public Payment getByCardNumber(String cardNumber){
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Payment> query = criteriaBuilder.createQuery(Payment.class);
 
+            Root<Payment> paymentTable = query.from(Payment.class);
+            query.select(paymentTable)
+                    .where(criteriaBuilder.equal(paymentTable.get("cardNumber"), cardNumber));
+
+            return session.createQuery(query).getSingleResult();
+        }
     @Override
     public void delete(Payment payment) {
         Transaction tx = session.beginTransaction();
