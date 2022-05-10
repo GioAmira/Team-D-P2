@@ -32,8 +32,8 @@ public class User {
     private String state;
     @Column(name="zip_code")
     private String zipCode;
-    @Column(name="cart")
-    @OneToOne
+
+    @OneToOne(mappedBy = "user")
     private Cart cart;
     @Column(name="payment_methods")
     @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)

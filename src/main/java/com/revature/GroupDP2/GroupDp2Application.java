@@ -39,7 +39,16 @@ public class GroupDp2Application {
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
 		//Add your transactions in between
-
+		Category rock = new Category("Rock");
+		rock.addProduct(new Product(rock,"Dark side of the moon", "Descr",12.5));
+		session.save(rock);
+		User user = new User("Username","password",false,"first","last","email","phone","street","city","state","zipcode");
+		session.save(user);
+		Product product = new Product(rock,"popAlbum","descr",10.5);
+		session.save(product);
+		Cart cart = new Cart(user);
+		cart.addCartItem(product);
+		session.save(cart);
 
 		//add your code here
 

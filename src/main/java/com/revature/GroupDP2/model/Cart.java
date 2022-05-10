@@ -14,18 +14,18 @@ public class Cart {
     @Column(name = "cart_id", nullable = false)
     private Integer id;
 
-    @Column(name="user_id")
-    private Integer userId;
+    @OneToOne
+    private User user;
 
     @Column(name="cart_items")
-    @OneToMany(mappedBy = "cart", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "productCart", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
     private List<Product> cartItems = new ArrayList<>();
 
     @Column(name="order_initialized")
     private Timestamp cartInitialized;
 
-    public Cart(Integer userId) {
-        this.userId = userId;
+    public Cart(User user) {
+        this.user = user;
     }
 
     public Cart() {
@@ -36,9 +36,9 @@ public class Cart {
 
     public void setId(Integer id) {this.id = id;}
 
-    public Integer getUserId() {return userId;}
+    public User getUser() {return this.user;}
 
-    public void setUserId(Integer userId) {this.userId = userId;}
+    public void setUser(User user) {this.user = user;}
 
     public List<Product> getCartItems() {return cartItems;}
 
