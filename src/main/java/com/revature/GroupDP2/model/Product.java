@@ -23,12 +23,15 @@ public class Product {
     private String description;
 
     @Column(name = "price")
-    private String price;
+    private Double price;
 
     @ManyToOne
     private Category category;
 
-    public Product(Category category, String productName, String description, String price) {
+    @ManyToOne
+    private Cart productCart;
+
+    public Product(Category category, String productName, String description, Double price) {
         this.category = category;
         this.productName = productName;
         this.description = description;
@@ -63,11 +66,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

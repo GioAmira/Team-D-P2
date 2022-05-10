@@ -19,6 +19,10 @@ public class Payment {
     @Column(name = "cvv_number")
     private Integer cvvNumber;
 
+
+    @ManyToOne
+    private User user;
+
     public Payment() {
 
     }

@@ -9,7 +9,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private Long id;
+    private Integer id;
     @Column(name="username")
     private String userName;
     @Column(name="password")
@@ -32,11 +32,11 @@ public class User {
     private String state;
     @Column(name="zip_code")
     private String zipCode;
-    @Column(name="cart")
-    @OneToOne
+
+    @OneToOne(mappedBy = "user")
     private Cart cart;
     @Column(name="payment_methods")
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
     private List<Payment> paymentMethods;
 
     public User(String userName, String password, boolean enabled, String firstName, String lastName, String email, String phone, String streetName, String city, String state, String zipCode) {
@@ -144,11 +144,11 @@ public class User {
         this.zipCode = zipCode;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -165,6 +165,14 @@ public class User {
 
     public void setPaymentMethods(List<Payment> paymentMethods) {
         this.paymentMethods = paymentMethods;
+    }
+
+    public void addPaymentMethod(Payment payment){
+        paymentMethods.add(payment);
+    }
+
+    public void deletePaymentMethod(Payment payment){
+        paymentMethods.remove(payment);
     }
 
     @Override
