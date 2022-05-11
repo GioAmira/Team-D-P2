@@ -2,6 +2,7 @@ package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.IUserRepository;
 import com.revature.GroupDP2.util.SessionStore;
+import com.revature.GroupDP2.util.StorageManager;
 import com.revature.GroupDP2.util.TransactionManager;
 import org.apache.catalina.User;
 import org.hibernate.Session;
@@ -16,8 +17,8 @@ import java.util.Optional;
 public class UserRepository implements IUserRepository {
     private final Session session;
     @Autowired
-    public UserRepository(SessionStore sessionstore) {
-        this.session =sessionstore.getSession();
+    public UserRepository(StorageManager storageManager) {
+        this.session = storageManager.getSession();
     }
 
     @Override
