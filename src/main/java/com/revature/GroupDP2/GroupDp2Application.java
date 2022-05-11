@@ -25,10 +25,18 @@ public class GroupDp2Application {
 
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext context =SpringApplication.run(GroupDp2Application.class, args);
+		ConfigurableApplicationContext context = SpringApplication.run(GroupDp2Application.class, args);
 		//this is how you get a bean, beans act as global
-		SessionStore sessionStore = context.getBean(SessionStore.class);
-		Session session = sessionStore.getSession();
+		StorageManager storageManager = context.getBean(StorageManager.class);
+		context.start();
+		storageManager.addAnnotatedClass(User.class,Cart.class,Category.class,Product.class,Payment.class);
+		Session session = storageManager.getSession();
+
+
+
+
+
+
 				/*
 		Setup moved to SessionStore, because it had to be in a bean
 		because it had to be autowired into the repositories.
@@ -45,6 +53,7 @@ public class GroupDp2Application {
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 */
+		/*
 		Transaction transaction = session.beginTransaction();
 
 
@@ -64,6 +73,8 @@ public class GroupDp2Application {
 
 		transaction.commit();
 
+
+		 */
 		/*
 			StorageManager storageManager = new StorageManager();
 			storageManager.addAnnotatedClass(Category.class);
