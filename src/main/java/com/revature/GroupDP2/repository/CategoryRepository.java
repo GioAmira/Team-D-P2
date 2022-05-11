@@ -7,14 +7,16 @@ import com.revature.GroupDP2.util.TransactionManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 @Component
-public class CategoryRepository implements ICategoryRepository<Category> {
+public class CategoryRepository implements ICategoryRepository<Category>{
 
+    StorageManager storageManager;
     private Session session;
 
     public CategoryRepository(){
@@ -22,8 +24,7 @@ public class CategoryRepository implements ICategoryRepository<Category> {
     }
     @Autowired
     public CategoryRepository(StorageManager storageManager){
-
-        this.session = storageManager.getSession();
+        this.storageManager = storageManager;
     }
 
     @Override
@@ -41,9 +42,10 @@ public class CategoryRepository implements ICategoryRepository<Category> {
 
     @Override
     public void create(Category category) {
-        System.out.println("We are here and maybe session is null");
+        this.session = storageManager.getSession();
+        System.out.println("we are here and maybe session is null");
         if (session != null){
-            System.out.println("We are in a repo");
+            System.out.println("category is about to be added");
             Transaction transaction = session.beginTransaction();
             session.save(category);
             transaction.commit();
@@ -90,4 +92,5 @@ public class CategoryRepository implements ICategoryRepository<Category> {
             //throw an exception
         }
     }
+
 }

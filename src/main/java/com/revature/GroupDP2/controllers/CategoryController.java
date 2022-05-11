@@ -22,8 +22,7 @@ public class CategoryController {
 
     @PostMapping
     public void create(@RequestBody Category category){
-        System.out.println(category);
-        System.out.println("We are in a controller");
+
         categoryService.create(category);
     }
 

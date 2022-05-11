@@ -13,19 +13,18 @@ import java.util.List;
 public class StorageManager implements Lifecycle {
 
     private boolean isRunning = false;
-    private List<Class> annotatedEntities;
     Configuration config;
     private SessionFactory sessionFactory;
     private Session session;
 
     public StorageManager() {
-        annotatedEntities = new LinkedList<>();
+        config = new Configuration();
     }
 
     public void addAnnotatedClass(Class ... c) {
 
-        for (Class tempClass :  c) {
-            config.addAnnotatedClass(tempClass);
+        for (Class currentClass :  c) {
+            config.addAnnotatedClass(currentClass);
         }
 
     }
@@ -40,7 +39,6 @@ public class StorageManager implements Lifecycle {
 
     @Override
     public void start() {
-        config = new Configuration();
 
         this.sessionFactory = config.buildSessionFactory();
 
