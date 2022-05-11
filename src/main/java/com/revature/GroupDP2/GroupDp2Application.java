@@ -6,6 +6,7 @@ import com.revature.GroupDP2.model.Product;
 import com.revature.GroupDP2.repository.ProductRepository;
 import com.revature.GroupDP2.model.*;
 import com.revature.GroupDP2.repository.CategoryRepository;
+import com.revature.GroupDP2.util.SessionStore;
 import com.revature.GroupDP2.util.StorageManager;
 import com.revature.GroupDP2.util.TransactionManager;
 import org.hibernate.Session;
@@ -16,15 +17,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 
-
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.revature.GroupDP2")
 public class GroupDp2Application {
 
 
 	public static void main(String[] args) {
-		SpringApplication.run(GroupDp2Application.class, args);
+		ConfigurableApplicationContext context =SpringApplication.run(GroupDp2Application.class, args);
+		//this is how you get a bean, beans act as global
+		SessionStore sessionStore = context.getBean(SessionStore.class);
+		Session session = sessionStore.getSession();
+				/*
+		Setup moved to SessionStore, because it had to be in a bean
+		because it had to be autowired into the repositories.
 
 		Configuration configuration = new Configuration();
 		configuration.addAnnotatedClass(User.class);
@@ -37,7 +44,10 @@ public class GroupDp2Application {
 
 		SessionFactory sessionFactory = configuration.buildSessionFactory();
 		Session session = sessionFactory.openSession();
+*/
 		Transaction transaction = session.beginTransaction();
+
+
 		//Add your transactions in between
 		Category rock = new Category("Rock");
 		rock.addProduct(new Product(rock,"Dark side of the moon", "Descr",12.5));
