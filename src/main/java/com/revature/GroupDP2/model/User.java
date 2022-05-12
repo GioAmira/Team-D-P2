@@ -33,7 +33,8 @@ public class User {
     @Column(name="zip_code")
     private String zipCode;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    @JoinColumn(name = "cart_id")
     private Cart cart;
     @Column(name="payment_methods")
     @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)

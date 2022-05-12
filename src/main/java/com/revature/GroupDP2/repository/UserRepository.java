@@ -19,6 +19,7 @@ public class UserRepository implements IUserRepository, Lifecycle {
     private boolean running;
     private final StorageManager storageManager;
     private Session session;
+  
     @Autowired
     public UserRepository(StorageManager storageManager) {
         this.storageManager = storageManager;
