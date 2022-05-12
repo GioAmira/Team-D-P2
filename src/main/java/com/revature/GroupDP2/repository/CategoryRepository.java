@@ -13,10 +13,12 @@ import org.springframework.stereotype.Component;
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
-@Component
-public class CategoryRepository implements ICategoryRepository<Category>{
 
-    StorageManager storageManager;
+@Component
+public class CategoryRepository implements ICategoryRepository<Category>, Lifecycle{
+
+    private boolean running = false;
+    private StorageManager storageManager;
     private Session session;
 
     public CategoryRepository(){
@@ -42,7 +44,6 @@ public class CategoryRepository implements ICategoryRepository<Category>{
 
     @Override
     public void create(Category category) {
-        this.session = storageManager.getSession();
         System.out.println("we are here and maybe session is null");
         if (session != null){
             System.out.println("category is about to be added");
@@ -93,4 +94,19 @@ public class CategoryRepository implements ICategoryRepository<Category>{
         }
     }
 
+    @Override
+    public void start() {
+        running = true;
+        this.session = storageManager.getSession();
+    }
+
+    @Override
+    public void stop() {
+
+    }
+
+    @Override
+    public boolean isRunning() {
+        return running;
+    }
 }

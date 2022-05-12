@@ -18,7 +18,7 @@ public class Cart {
     private User user;
 
     @Column(name="cart_items")
-    @OneToMany(mappedBy = "productCart", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @ManyToMany(mappedBy = "productCart", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
     private List<Product> cartItems = new ArrayList<>();
 
     @Column(name="order_initialized")
