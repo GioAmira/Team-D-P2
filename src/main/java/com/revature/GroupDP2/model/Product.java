@@ -30,7 +30,7 @@ public class Product {
     @ManyToOne
     @JoinColumn
     private Category category;
-
+  
     @ManyToMany
     @Column
     private List<Cart> productCart;
@@ -97,8 +97,14 @@ public class Product {
     public void setProductCart(List<Cart> productCart) {
         this.productCart = productCart;
     }
-    public void addItem(Cart cart){
-        productCart.add(cart);
+  
+    public void addProductCart(Cart cart){
+      productCart.add(cart);
     }
+    
+    public void removeProductCart(Cart cart){
+      productCart.remove(cart);
+    }
+
 }
 

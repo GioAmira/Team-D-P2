@@ -19,11 +19,11 @@ public class ProductRepository implements IProductRepository<Product>, Lifecycle
     private final StorageManager storageManager;
     private Session session;
     private boolean running=false;
+
     @Autowired
     public ProductRepository(StorageManager storageManager) {
         this.storageManager = storageManager;
     }
-
 
     @Override
     public void create(Product p) {
@@ -67,13 +67,14 @@ public class ProductRepository implements IProductRepository<Product>, Lifecycle
 
     @Override
     public void start() {
-        this.session=storageManager.getSession();
-        running=true;
+        running = true;
+        this.session = storageManager.getSession();
     }
 
     @Override
     public void stop() {
-    running=false;
+        running = false;
+        this.session.close();
     }
 
     @Override

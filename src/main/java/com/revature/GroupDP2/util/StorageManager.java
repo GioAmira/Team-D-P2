@@ -6,13 +6,11 @@ import org.hibernate.cfg.Configuration;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedList;
-import java.util.List;
 
 @Service
 public class StorageManager implements Lifecycle {
 
-    private boolean isRunning = false;
+    private boolean running = false;
     Configuration config;
     private SessionFactory sessionFactory;
     private Session session;
@@ -44,18 +42,18 @@ public class StorageManager implements Lifecycle {
 
         this.session = sessionFactory.openSession();
 
-        isRunning = true;
+        running = true;
 
     }
 
     @Override
     public void stop() {
-        isRunning = false;
+        running = false;
         session.close();
     }
 
     @Override
     public boolean isRunning() {
-        return isRunning;
+        return running;
     }
 }
