@@ -4,6 +4,8 @@ package com.revature.GroupDP2.model;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //Product class - corresponds to GroupDP2_product in db
 
@@ -28,18 +30,18 @@ public class Product {
     @ManyToOne
     private Category category;
 
-    @ManyToOne
-    private Cart productCart;
+    @ManyToMany
+    private List<Cart> productCart;
 
     public Product(Category category, String productName, String description, Double price) {
         this.category = category;
         this.productName = productName;
         this.description = description;
         this.price = price;
-
+        productCart=new ArrayList<>();
     }
     public Product() {
-
+    productCart=new ArrayList<>();
     }
 
     public Long getProduct_id() {
@@ -86,12 +88,15 @@ public class Product {
         return productName;
     }
 
-    public Cart getProductCart() {
+    public List<Cart> getProductCart() {
         return productCart;
     }
 
-    public void setProductCart(Cart productCart) {
+    public void setProductCart(List<Cart> productCart) {
         this.productCart = productCart;
+    }
+    public void addItem(Cart cart){
+        productCart.add(cart);
     }
 }
 

@@ -17,13 +17,18 @@ public class Cart {
     @OneToOne(mappedBy = "cart")
     private User user;
 
-    @OneToMany(mappedBy = "productCart", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
     private List<Product> cartItems = new ArrayList<>();
 
 
-    public Cart(User user) {this.user = user;}
+    public Cart(User user) {
+        this.user = user;
+        cartItems = new ArrayList<>();
+    }
 
-    public Cart() {}
+    public Cart() {
+        cartItems = new ArrayList<>();
+    }
 
     public void addCartItem(Product product){
         cartItems.add(product);
@@ -43,5 +48,7 @@ public class Cart {
     public List<Product> getCartItems() {return cartItems;}
 
     public void setCartItems(List<Product> cartItems) {this.cartItems = cartItems;}
-
+    public void addCartItems(Product product){
+        cartItems.add(product);
+    }
 }

@@ -19,8 +19,8 @@ public class UserService {
     2. check if email is valid
     3. check if there is a password
      */
-    public Optional<User> regester(User user) throws Exception {
-        if (!userRepository.getByUsername(user.getUserName()).isPresent()) {
+    public Optional<User> register(User user) throws Exception {
+        if (userRepository.getByUsername(user.getUserName()).isPresent()) {
             throw new Exception("username already taken!");
         }
         //TODO
@@ -36,14 +36,24 @@ public class UserService {
     }
     /*
     1. see if exists
-    2. update
+    2.see if password is null
+    3.see if email is valid
+    4. update
      */
     public Optional<User> edit(User user) throws Exception {
     Optional<User> oldUser=userRepository.getById(user.getId());
-    if(oldUser.isPresent()){
+    if(oldUser.isPresent()&&user.getPassword()!=null){
         oldUser=Optional.of(user);
         return oldUser;
     }
         throw new Exception("update fail!");
+    }
+    public User unRegester(User user) throws Exception {
+        Optional<User> oldUser =userRepository.getById(user.getId());
+        if(oldUser.isPresent()){
+            userRepository.delete(oldUser.get());
+            return oldUser.get();
+        }
+        throw new Exception("could not delete!");
     }
 }

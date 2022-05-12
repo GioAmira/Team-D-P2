@@ -2,33 +2,37 @@ package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.ICartRepository;
 import com.revature.GroupDP2.model.Cart;
+import com.revature.GroupDP2.util.StorageManager;
 import com.revature.GroupDP2.util.TransactionManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.Lifecycle;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
 import java.util.Optional;
+@Repository
+public class CartRepository implements ICartRepository, Lifecycle {
 
-public class CartRepository implements ICartRepository {
-
-    private TransactionManager transactionManager;
+    private StorageManager storageManager;
     private Session session;
-
-    public CartRepository(TransactionManager transactionManager,Session session) {
-        this.transactionManager = transactionManager;
-        this.session =session;
+    private boolean running=false;
+    @Autowired
+    public CartRepository(StorageManager storageManager) {
+        this.storageManager = storageManager;
     }
 
     @Override
     public void create(Cart c) {
-        Transaction transaction = transactionManager.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         session.save(c);
         transaction.commit();
     }
 
     @Override
     public void update(Cart c) {
-        Transaction transaction = transactionManager.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         session.update(c);
         transaction.commit();
     }
@@ -42,9 +46,25 @@ public class CartRepository implements ICartRepository {
 
     @Override
     public void delete(Cart c) {
-        Transaction transaction = transactionManager.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         session.delete(c);
         transaction.commit();
     }
 
+    @Override
+    public void start() {
+        this.session =storageManager.getSession();
+        running=true;
+    }
+
+    @Override
+    public void stop() {
+    running=false;
+    session.close();
+    }
+
+    @Override
+    public boolean isRunning() {
+        return running;
+    }
 }
