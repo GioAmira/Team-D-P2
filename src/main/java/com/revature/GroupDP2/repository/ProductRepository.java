@@ -8,17 +8,17 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.Lifecycle;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
-@Component
+@Repository
 public class ProductRepository implements IProductRepository<Product>, Lifecycle {
 
-    private boolean running = false;
-    private StorageManager storageManager;
+    private final StorageManager storageManager;
     private Session session;
+    private boolean running=false;
 
     @Autowired
     public ProductRepository(StorageManager storageManager) {
@@ -69,7 +69,6 @@ public class ProductRepository implements IProductRepository<Product>, Lifecycle
     public void start() {
         running = true;
         this.session = storageManager.getSession();
-
     }
 
     @Override

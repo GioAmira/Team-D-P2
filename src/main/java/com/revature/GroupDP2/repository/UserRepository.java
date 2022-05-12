@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
@@ -42,9 +43,13 @@ public class UserRepository implements IUserRepository, Lifecycle {
     //maybe we want to return an optional?
     @Override
     public Optional<User> getById(int t) {
+        try{
         TypedQuery<User> query = session.createQuery("FROM User WHERE id= :id",User.class);
         query.setParameter("id",t);
         return Optional.ofNullable(query.getSingleResult());
+    } catch(NoResultException e){
+        return Optional.empty();
+    }
     }
 
     @Override
@@ -56,10 +61,15 @@ public class UserRepository implements IUserRepository, Lifecycle {
 
     @Override
     public Optional<User> getByUsername(String username) {
-        TypedQuery<User> query = session.createQuery("FROM User WHERE userName= :userName",User.class);
-        query.setParameter("userName",username);
-        return Optional.ofNullable(query.getSingleResult());
+        try {
+            TypedQuery<User> query = session.createQuery("FROM User WHERE userName= :userName", User.class);
+            query.setParameter("userName", username);
+            return Optional.ofNullable(query.getSingleResult());
+        } catch(NoResultException e){
+            return Optional.empty();
+        }
     }
+
 
     @Override
     public void start() {

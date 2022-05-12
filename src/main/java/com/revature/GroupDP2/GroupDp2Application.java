@@ -1,6 +1,8 @@
 package com.revature.GroupDP2;
 
 import com.revature.GroupDP2.model.Product;
+import com.revature.GroupDP2.repository.CartRepository;
+import com.revature.GroupDP2.repository.ProductRepository;
 import com.revature.GroupDP2.model.*;
 
 import com.revature.GroupDP2.repository.CategoryRepository;
@@ -22,47 +24,18 @@ public class GroupDp2Application {
 		//this is how you get a bean, beans act as global
 		StorageManager storageManager = context.getBean(StorageManager.class);
 		storageManager.addAnnotatedClass(User.class,Cart.class,Category.class,Product.class,Payment.class);
+		/*
 		context.start();
-		context.getBean(UserRepository.class).create(new User("a","a"));
+		Cart cart= new Cart();
+		Product product=new Product();
+		context.getBean(CartRepository.class).create(cart);
+		context.getBean(ProductRepository.class).create(product);
+		cart.addCartItems(product);
+		product.addItem(cart);
+		context.getBean(CartRepository.class).update(cart);
+		context.getBean(ProductRepository.class).update(product);
 		Session session = storageManager.getSession();
-
-
-		Transaction transaction = session.beginTransaction();
-		Category category = new Category();
-		category.setCategoryName("Rock");
-		session.save(category);
-
-		Product product = new Product();
-		product.setProductName("PopAlbum");
-		product.setDescription("Pop Descr");
-		product.setPrice(11.2);
-		product.setCategory(category);
-		session.save(product);
-
-		User user = new User();
-		session.save(user);
-
-		Cart cart = new Cart();
-		cart.setUser(user);
-		cart.addCartItem(product);
-		session.save(cart);
-
-		product.addProductCart(cart);
-		session.save(product);
-
-
-
-
-
-
-
-
-
-		transaction.commit();
-
-
-
-
+		*/
 	}
 }
 

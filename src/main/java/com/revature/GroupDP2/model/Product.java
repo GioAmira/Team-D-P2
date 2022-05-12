@@ -28,19 +28,22 @@ public class Product {
     private Double price;
 
     @ManyToOne
+    @JoinColumn
     private Category category;
-    @ManyToMany(mappedBy = "cartItems")
-    private List<Cart> productCart = new ArrayList<>();
+  
+    @ManyToMany
+    @Column
+    private List<Cart> productCart;
 
     public Product(Category category, String productName, String description, Double price) {
         this.category = category;
         this.productName = productName;
         this.description = description;
         this.price = price;
-
+        productCart=new ArrayList<>();
     }
     public Product() {
-
+    productCart=new ArrayList<>();
     }
 
     public Long getProduct_id() {
@@ -94,7 +97,7 @@ public class Product {
     public void setProductCart(List<Cart> productCart) {
         this.productCart = productCart;
     }
-
+  
     public void addProductCart(Cart cart){
       productCart.add(cart);
     }
