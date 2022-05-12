@@ -2,22 +2,27 @@ package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.IPaymentRepository;
 import com.revature.GroupDP2.model.Payment;
+import com.revature.GroupDP2.util.StorageManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.context.Lifecycle;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.TypedQuery;
 import java.util.LinkedList;
 import java.util.List;
 
+@Component
+public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle {
 
-public class PaymentRepository implements IPaymentRepository<Payment> {
-    private final Session session;
+    private boolean running = false;
+    private StorageManager storageManager;
+    private  Session session;
     String tableName;
 
-    public PaymentRepository(Session session , String tableName) {
-        this.session = session;
-        this.tableName = tableName;
+    public PaymentRepository(StorageManager storageManager) {
+        this.storageManager = storageManager;
     }
 
     @Override
@@ -75,4 +80,20 @@ public class PaymentRepository implements IPaymentRepository<Payment> {
         tx.commit();
     }
 
+    @Override
+    public void start() {
+        running = true;
+        this.session = storageManager.getSession();
+    }
+
+    @Override
+    public void stop() {
+        running = false;
+        this.session.close();
+    }
+
+    @Override
+    public boolean isRunning() {
+        return running;
+    }
 }

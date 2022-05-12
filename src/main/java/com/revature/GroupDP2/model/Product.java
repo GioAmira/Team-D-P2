@@ -29,7 +29,6 @@ public class Product {
 
     @ManyToOne
     private Category category;
-    @Column(name = "productCart")
     @ManyToMany(mappedBy = "cartItems")
     private List<Cart> productCart = new ArrayList<>();
 
@@ -88,14 +87,14 @@ public class Product {
         return productName;
     }
 
-    public Cart getProductCart() {
+    public List<Cart> getProductCart() {
         return productCart;
     }
 
-    public void setProductCart(Cart productCart) {
+    public void setProductCart(List<Cart> productCart) {
         this.productCart = productCart;
     }
-  
+
     public void addProductCart(Cart cart){
       productCart.add(cart);
     }
