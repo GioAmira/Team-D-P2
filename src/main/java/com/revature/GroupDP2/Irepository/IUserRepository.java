@@ -1,6 +1,6 @@
 package com.revature.GroupDP2.Irepository;
 
-import org.apache.catalina.User;
+import com.revature.GroupDP2.model.User;
 
 import java.util.List;
 import java.util.Optional;
