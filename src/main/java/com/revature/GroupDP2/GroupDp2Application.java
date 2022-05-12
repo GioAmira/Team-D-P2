@@ -33,45 +33,6 @@ public class GroupDp2Application {
 		context.start();
 		Session session = storageManager.getSession();
 
-		/*
-		Transaction transaction = session.beginTransaction();
-
-		Category category = new Category("Rock");
-		Category category1 = new Category("Pop");
-		session.save(category);
-		session.save(category1);
-		transaction.commit();
-
-		Product product = new Product(category,"RockAlbum","rockDescr",20.0);
-		Product product1 = new Product(category1,"PopAlbum","descr",10.0);
-		transaction.begin();
-		session.save(product);
-		transaction.commit();
-		transaction.begin();
-		session.save(product1);
-		transaction.commit();
-
-		transaction.begin();
-		Cart cart = new Cart();
-		cart.addCartItem(product);
-		cart.addCartItem(product1);
-		session.save(cart);
-		transaction.commit();
-
-		transaction.begin();
-		product.setProductCart(cart);
-		session.save(product);
-		transaction.commit();
-
-		transaction.begin();
-		User user = new User();
-		user.setUserName("username");
-		user.setCart(cart);
-		session.save(user);
-
-		transaction.commit();
-
-		 */
 	}
 }
 
