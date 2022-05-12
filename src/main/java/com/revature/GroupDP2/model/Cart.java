@@ -14,10 +14,9 @@ public class Cart {
     @Column(name = "cart_id", nullable = false)
     private Integer id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "cart")
     private User user;
 
-    @Column(name="cart_items")
     @OneToMany(mappedBy = "productCart", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
     private List<Product> cartItems = new ArrayList<>();
 
