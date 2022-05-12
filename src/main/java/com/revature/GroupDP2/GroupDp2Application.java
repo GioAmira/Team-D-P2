@@ -1,20 +1,10 @@
 package com.revature.GroupDP2;
 
-
-
 import com.revature.GroupDP2.model.Product;
-import com.revature.GroupDP2.repository.ProductRepository;
 import com.revature.GroupDP2.model.*;
-import com.revature.GroupDP2.repository.CategoryRepository;
-import com.revature.GroupDP2.util.SessionStore;
 import com.revature.GroupDP2.util.StorageManager;
-import com.revature.GroupDP2.util.TransactionManager;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -31,6 +21,43 @@ public class GroupDp2Application {
 		storageManager.addAnnotatedClass(User.class,Cart.class,Category.class,Product.class,Payment.class);
 		context.start();
 		Session session = storageManager.getSession();
+
+
+		Transaction transaction = session.beginTransaction();
+		Category category = new Category();
+		category.setCategoryName("Rock");
+		session.save(category);
+
+		Product product = new Product();
+		product.setProductName("PopAlbum");
+		product.setDescription("Pop Descr");
+		product.setPrice(11.2);
+		product.setCategory(category);
+		session.save(product);
+
+		User user = new User();
+		session.save(user);
+
+		Cart cart = new Cart();
+		cart.setUser(user);
+		cart.addCartItem(product);
+		session.save(cart);
+
+		product.addProductCart(cart);
+		session.save(product);
+
+
+
+
+
+
+
+
+
+		transaction.commit();
+
+
+
 
 	}
 }

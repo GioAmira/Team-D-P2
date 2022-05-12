@@ -3,13 +3,11 @@ package com.revature.GroupDP2.repository;
 import com.revature.GroupDP2.Irepository.ICategoryRepository;
 import com.revature.GroupDP2.model.*;
 import com.revature.GroupDP2.util.StorageManager;
-import com.revature.GroupDP2.util.TransactionManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
@@ -102,7 +100,8 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
 
     @Override
     public void stop() {
-
+        running = false;
+        this.session.close();
     }
 
     @Override

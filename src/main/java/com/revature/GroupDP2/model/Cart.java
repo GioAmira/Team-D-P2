@@ -16,9 +16,12 @@ public class Cart {
 
     @OneToOne
     private User user;
-
-    @Column(name="cart_items")
-    @ManyToMany(mappedBy = "productCart", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @Column(name = "cartItems")
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @JoinTable(
+            joinColumns = { @JoinColumn(name = "cartItems") },
+            inverseJoinColumns = { @JoinColumn(name = "productCart") }
+    )
     private List<Product> cartItems = new ArrayList<>();
 
     @Column(name="order_initialized")
