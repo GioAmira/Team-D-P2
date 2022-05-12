@@ -3,36 +3,30 @@ package com.revature.GroupDP2.util;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.context.Lifecycle;
+import org.springframework.stereotype.Service;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class StorageManager {
+@Service
+public class StorageManager implements Lifecycle {
 
-    private List<Class> annotatedEntities;
+    private boolean isRunning = false;
+    Configuration config;
     private SessionFactory sessionFactory;
     private Session session;
 
     public StorageManager() {
-        annotatedEntities = new LinkedList<>();
+        config = new Configuration();
     }
 
-    public void addAnnotatedClass(Class c) {
-        annotatedEntities.add(c);
-    }
+    public void addAnnotatedClass(Class ... c) {
 
-    public Session initializeDatasource() {
-        Configuration config = new Configuration();
-
-        for (Class c: annotatedEntities) {
-            config.addAnnotatedClass(c);
+        for (Class currentClass :  c) {
+            config.addAnnotatedClass(currentClass);
         }
 
-        this.sessionFactory = config.buildSessionFactory();
-
-        this.session = sessionFactory.openSession();
-
-        return this.session;
     }
 
     public SessionFactory getSessionFactory() {
@@ -41,5 +35,27 @@ public class StorageManager {
 
     public Session getSession() {
         return session;
+    }
+
+    @Override
+    public void start() {
+
+        this.sessionFactory = config.buildSessionFactory();
+
+        this.session = sessionFactory.openSession();
+
+        isRunning = true;
+
+    }
+
+    @Override
+    public void stop() {
+        isRunning = false;
+        session.close();
+    }
+
+    @Override
+    public boolean isRunning() {
+        return isRunning;
     }
 }

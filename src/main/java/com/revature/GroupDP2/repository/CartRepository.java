@@ -2,7 +2,7 @@ package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.ICartRepository;
 import com.revature.GroupDP2.model.Cart;
-import com.revature.GroupDP2.util.TransactionManager;
+import com.revature.GroupDP2.model.Product;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -34,7 +34,7 @@ public class CartRepository implements ICartRepository {
     }
 
     @Override
-    public Optional<Cart> getById(int t) {
+    public Optional<Product> getById(int t) {
         TypedQuery<Cart> query = session.createQuery("FROM Cart WHERE id = :id",Cart.class);
         query.setParameter("id",t);
         return Optional.ofNullable(query.getSingleResult());

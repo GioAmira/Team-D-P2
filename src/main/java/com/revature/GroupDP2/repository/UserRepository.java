@@ -1,13 +1,12 @@
 package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.IUserRepository;
-import com.revature.GroupDP2.util.TransactionManager;
+import com.revature.GroupDP2.model.Product;
 import org.apache.catalina.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import javax.persistence.TypedQuery;
-import java.util.List;
 import java.util.Optional;
 
 public class UserRepository implements IUserRepository {
@@ -36,7 +35,7 @@ public class UserRepository implements IUserRepository {
 
     //maybe we want to return an optional?
     @Override
-    public Optional<User> getById(int t) {
+    public Optional<Product> getById(int t) {
         TypedQuery<User> query = session.createQuery("FROM User WHERE id= :id",User.class);
         query.setParameter("id",t);
         return Optional.ofNullable(query.getSingleResult());
