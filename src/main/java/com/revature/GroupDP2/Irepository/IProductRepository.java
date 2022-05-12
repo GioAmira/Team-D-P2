@@ -2,17 +2,23 @@ package com.revature.GroupDP2.Irepository;
 
 import com.revature.GroupDP2.model.Product;
 
-public interface IProductRepository extends IGenericRepository<Product>{
+import java.util.List;
 
-    public Product getByUserId(Long id);
+public interface IProductRepository<T> extends IGenericRepository<Product>{
 
-    Product create(Product p);
+    Product getByUserId(int l);
 
-    void update(Product p);
+    Product getByCategoryId(int l);
 
-    Product getById(int t);
+    Product save(Product product);
 
-    Product delete(Product p);
+    List<Product> getAll();
 
-    Product getByCategoryId(Long l);
+    Object getById(Integer id);
+
+    void start();
+
+    void stop();
+
+    boolean isRunning();
 }

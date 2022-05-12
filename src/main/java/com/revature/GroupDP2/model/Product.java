@@ -3,12 +3,15 @@ package com.revature.GroupDP2.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 //Product class - corresponds to GroupDP2_product in db
 
 @Entity
 @Table(name="product",schema = "groupd")
+@JsonIgnoreProperties
 public class Product {
 
     @Id
@@ -23,15 +26,16 @@ public class Product {
     private String description;
 
     @Column(name = "price")
-    private String price;
+    private Double price;
 
     @ManyToOne
     private Category category;
 
     @ManyToOne
-    private Cart cart;
+    private Cart productCart;
+    private int id;
 
-    public Product(Category category, String productName, String description, String price) {
+    public Product(Category category, String productName, String description, Double price) {
         this.category = category;
         this.productName = productName;
         this.description = description;
@@ -39,6 +43,10 @@ public class Product {
 
     }
     public Product() {
+
+    }
+
+    public static void setCategoryId(Integer integer) {
 
     }
 
@@ -66,11 +74,11 @@ public class Product {
         this.description = description;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -80,6 +88,25 @@ public class Product {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public void setProductId(Integer integer) {
+
+    }
+
+    public void setUserId(String s) {
+
+    }
+
+    public Integer getId() {
+        return null;
     }
 }
 

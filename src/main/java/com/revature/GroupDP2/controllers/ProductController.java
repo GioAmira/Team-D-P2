@@ -3,7 +3,6 @@ package com.revature.GroupDP2.controllers;
 import com.revature.GroupDP2.dtos.AuthDto;
 import com.revature.GroupDP2.model.Product;
 
-import com.revature.GroupDP2.repository.ProductRepository;
 import com.revature.GroupDP2.services.ProductServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +15,13 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(path ="/product")
 public class ProductController {
-    private final ProductService productService;
+
+    ProductServices productServices;
 
 
     @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public ProductController(ProductServices productServices) {
+        this.productServices = productServices;
 
     }
 
@@ -29,19 +29,19 @@ public class ProductController {
     @GetMapping("/{productorId")
     @ResponseStatus(HttpStatus.OK)
     public List<Product> getAllProduct() {
-        return productService.getAllProduct;
+        return productServices.getAllProduct;
     }
 
         //get product by productname
         @GetMapping("/{productnameorId}")
         @ResponseStatus(HttpStatus.OK)
-        public Product getProduct (@PathVariable String productnameorId, @RequestHeader("mode") String mode) throws
+        public String getProduct (@PathVariable String productnameorId, @RequestHeader("mode") String mode) throws
         Exception {
         switch (mode) {
             case "productname":
-                return productService.getProductByProductname(productnameorId);
+                return productServices.getProductByProductname(productnameorId);
             case "id":
-                return productService.getProductById(Integer.parseInt(productnameorId));
+                return productServices.getProductById(Integer.parseInt(productnameorId));
             default:
                 throw new Exception("That's not a valid mode");
                 //TODO: Make this better
@@ -53,12 +53,12 @@ public class ProductController {
         @ResponseStatus(HttpStatus.OK)
         public Product persistNewProduct (@RequestBody Product newProduct){
             Object persistNewProduct = null;
-            return productService.save(persistNewProduct);
+            return productServices.save(persistNewProduct);
     }
         @GetMapping("/auth")
         @ResponseStatus(HttpStatus.OK)
-        public Product authorizeProduct (@RequestBody AuthDto authDto) throws Exception {
-        return productService.authenticateProduct(authDto);
+        public AuthDto authorizeProduct (@RequestBody AuthDto authDto) throws Exception {
+        return productServices.authenticateProduct(authDto);
         //TODO: ResponseEntity<User> use this object to send back a different response for unauthorized
     }
 
@@ -66,40 +66,42 @@ public class ProductController {
         @PutMapping
         @ResponseStatus(HttpStatus.OK)
         public Product updateProduct (@RequestBody Product product){
-        return productService.update(product);
+        return productServices.update(product);
     }
         @DeleteMapping
         @ResponseStatus(HttpStatus.OK)
         public Product deleteProduct (@RequestBody Product product){
-        return productService.delete(product);
+        return productServices.delete(product);
     }
 
-    private class ProductService {
+    private class ProductServices {
         public List<Product> getAllProduct;
 
-        public Product getProductByProductname(String productnameorId) {
-            return null;
+        public String getProductByProductname(String productnameorId) {
+            return productnameorId;
         }
 
-        public Product getProductById(int parseInt) {
+        public String getProductById(int parseInt) {
             return null;
         }
 
         public Product save(Object persistNewProduct) {
-            return null;
+            return new Product();
         }
 
         public Product update(Product product) {
-            return null;
+            return product;
         }
 
         public Product delete(Product product) {
-            return null;
+            return product;
         }
 
-        public Product authenticateProduct(AuthDto authDto) {
-            return null;
+        public AuthDto authenticateProduct(AuthDto authDto) {
+            return authDto;
         }
+
+
     }
 }
 
