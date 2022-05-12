@@ -2,6 +2,9 @@ package com.revature.GroupDP2;
 
 import com.revature.GroupDP2.model.Product;
 import com.revature.GroupDP2.model.*;
+
+import com.revature.GroupDP2.repository.CategoryRepository;
+import com.revature.GroupDP2.repository.UserRepository;
 import com.revature.GroupDP2.util.StorageManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -20,6 +23,7 @@ public class GroupDp2Application {
 		StorageManager storageManager = context.getBean(StorageManager.class);
 		storageManager.addAnnotatedClass(User.class,Cart.class,Category.class,Product.class,Payment.class);
 		context.start();
+		context.getBean(UserRepository.class).create(new User("a","a"));
 		Session session = storageManager.getSession();
 
 

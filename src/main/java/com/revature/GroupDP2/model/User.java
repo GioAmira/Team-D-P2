@@ -10,7 +10,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
     private Integer id;
-    @Column(name="username")
+    @Column(name="username",unique = true)
     private String userName;
     @Column(name="password")
     private String password;
@@ -33,12 +33,16 @@ public class User {
     @Column(name="zip_code")
     private String zipCode;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne
+    @JoinColumn(name = "cart_id")
     private Cart cart;
     @Column(name="payment_methods")
     @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
     private List<Payment> paymentMethods;
-
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
     public User(String userName, String password, boolean enabled, String firstName, String lastName, String email, String phone, String streetName, String city, String state, String zipCode) {
         this.userName = userName;
         this.password = password;

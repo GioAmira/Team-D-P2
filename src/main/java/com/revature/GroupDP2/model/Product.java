@@ -84,12 +84,25 @@ public class Product {
         this.category = category;
     }
 
-    public void addProductCart(Cart cart){
-        productCart.add(cart);
+    public String getProductName() {
+        return productName;
     }
 
-    public List<Cart> getProductCart(){
+    public Cart getProductCart() {
         return productCart;
     }
+
+    public void setProductCart(Cart productCart) {
+        this.productCart = productCart;
+    }
+  
+    public void addProductCart(Cart cart){
+      productCart.add(cart);
+    }
+    
+    public void removeProductCart(Cart cart){
+      productCart.remove(cart);
+    }
+
 }
 

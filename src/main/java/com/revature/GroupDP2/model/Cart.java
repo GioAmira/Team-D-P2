@@ -14,8 +14,9 @@ public class Cart {
     @Column(name = "cart_id", nullable = false)
     private Integer id;
 
-    @OneToOne
+    @OneToOne(mappedBy = "cart")
     private User user;
+
     @Column(name = "cartItems")
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
     @JoinTable(
@@ -24,15 +25,16 @@ public class Cart {
     )
     private List<Product> cartItems = new ArrayList<>();
 
-    @Column(name="order_initialized")
-    private Timestamp cartInitialized;
 
-    public Cart(User user) {
-        this.user = user;
+    public Cart(User user) {this.user = user;}
+
+    public Cart() {}
+
+    public void addCartItem(Product product){
+        cartItems.add(product);
     }
-
-    public Cart() {
-
+    public void deleteCartItem(Product product){
+        cartItems.remove(product);
     }
 
     public Integer getId() {return id;}
@@ -47,14 +49,4 @@ public class Cart {
 
     public void setCartItems(List<Product> cartItems) {this.cartItems = cartItems;}
 
-    public Timestamp getOrderInitialized() {return cartInitialized;}
-
-    public void setOrderInitialized(Timestamp cartInitialized) {this.cartInitialized = cartInitialized;}
-
-    public void addCartItem(Product product){
-        cartItems.add(product);
-    }
-    public void deleteCartItem(Product product){
-        cartItems.remove(product);
-    }
 }
