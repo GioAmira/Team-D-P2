@@ -81,5 +81,17 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public Cart getProductCart() {
+        return productCart;
+    }
+
+    public void setProductCart(Cart productCart) {
+        this.productCart = productCart;
+    }
 }
 

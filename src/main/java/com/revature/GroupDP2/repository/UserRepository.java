@@ -16,6 +16,7 @@ import java.util.Optional;
 @Repository
 public class UserRepository implements IUserRepository {
     private final Session session;
+
     @Autowired
     public UserRepository(StorageManager storageManager) {
         this.session = storageManager.getSession();

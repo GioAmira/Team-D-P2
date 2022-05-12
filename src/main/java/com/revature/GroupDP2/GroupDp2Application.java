@@ -6,6 +6,7 @@ import com.revature.GroupDP2.model.Product;
 import com.revature.GroupDP2.repository.ProductRepository;
 import com.revature.GroupDP2.model.*;
 import com.revature.GroupDP2.repository.CategoryRepository;
+import com.revature.GroupDP2.repository.UserRepository;
 import com.revature.GroupDP2.util.SessionStore;
 import com.revature.GroupDP2.util.StorageManager;
 import com.revature.GroupDP2.util.TransactionManager;
