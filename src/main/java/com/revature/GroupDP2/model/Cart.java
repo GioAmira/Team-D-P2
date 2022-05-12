@@ -14,14 +14,15 @@ public class Cart {
     @Column(name = "cart_id", nullable = false)
     private Integer id;
 
-    @Column(name="user_id")
+
+    @Column(name = "user_id")
     private Integer userId;
 
-    @Column(name="cart_items")
-    @OneToMany(mappedBy = "cart", cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @Column(name = "cart_items")
+    @OneToMany(mappedBy = "cart", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<Product> cartItems = new ArrayList<>();
 
-    @Column(name="order_initialized")
+    @Column(name = "order_initialized")
     private Timestamp cartInitialized;
 
     public Cart(Integer userId) {
@@ -30,28 +31,86 @@ public class Cart {
 
     public Cart() {
 
-    }
 
-    public Integer getId() {return id;}
+        @OneToOne(mappedBy = "cart")
+        @JoinColumn
+        private User user;
 
-    public void setId(Integer id) {this.id = id;}
+        @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+        @Column
+        private List<Product> cartItems = new ArrayList<>();
 
-    public Integer getUserId() {return userId;}
 
-    public void setUserId(Integer userId) {this.userId = userId;}
+    public Cart(User user) {
+            this.user = user;
+            cartItems = new ArrayList<>();
+        }
 
-    public List<Product> getCartItems() {return cartItems;}
+    public Cart() {
+            cartItems = new ArrayList<>();
+        }
 
-    public void setCartItems(List<Product> cartItems) {this.cartItems = cartItems;}
+        public void addCartItem (Product product){
+            cartItems.add(product);
+        }
+        public void deleteCartItem (Product product){
+            cartItems.remove(product);
 
-    public Timestamp getOrderInitialized() {return cartInitialized;}
+        }
 
-    public void setOrderInitialized(Timestamp cartInitialized) {this.cartInitialized = cartInitialized;}
+        public Integer getId () {
+            return id;
+        }
 
-    public void addCartItem(Product product){
-        cartItems.add(product);
-    }
-    public void deleteCartItem(Product product){
-        cartItems.remove(product);
+        public void setId (Integer id){
+            this.id = id;
+        }
+
+
+        public Integer getUserId () {
+            return userId;
+        }
+
+        public void setUserId (Integer userId){
+            this.userId = userId;
+        }
+
+        public User getUser () {
+            return this.user;
+        }
+
+        public void setUser (User user){
+            this.user = user;
+        }
+
+
+        public List<Product> getCartItems () {
+            return cartItems;
+        }
+
+        public void setCartItems (List < Product > cartItems) {
+            this.cartItems = cartItems;
+        }
+
+
+        public Timestamp getOrderInitialized () {
+            return cartInitialized;
+        }
+
+        public void setOrderInitialized (Timestamp cartInitialized){
+            this.cartInitialized = cartInitialized;
+        }
+
+        public void addCartItem (Product product){
+            cartItems.add(product);
+        }
+        public void deleteCartItem (Product product){
+            cartItems.remove(product);
+        }
+
+        public void addCartItems (Product product){
+            cartItems.add(product);
+        }
+
     }
 }

@@ -6,6 +6,8 @@ package com.revature.GroupDP2.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 //Product class - corresponds to GroupDP2_product in db
 
@@ -29,21 +31,28 @@ public class Product {
     private Double price;
 
     @ManyToOne
+    @JoinColumn
     private Category category;
+  
+    @ManyToMany
+    @Column
+    private List<Cart> productCart;
 
     @ManyToOne
     private Cart productCart;
     private int id;
+
+
 
     public Product(Category category, String productName, String description, Double price) {
         this.category = category;
         this.productName = productName;
         this.description = description;
         this.price = price;
-
+        productCart=new ArrayList<>();
     }
     public Product() {
-
+    productCart=new ArrayList<>();
     }
 
     public static void setCategoryId(Integer integer) {
@@ -92,6 +101,7 @@ public class Product {
 
 
 
+
     public void setId(int id) {
         this.id = id;
     }
@@ -108,5 +118,27 @@ public class Product {
     public Integer getId() {
         return null;
     }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public List<Cart> getProductCart() {
+        return productCart;
+    }
+
+    public void setProductCart(List<Cart> productCart) {
+        this.productCart = productCart;
+    }
+  
+    public void addProductCart(Cart cart){
+      productCart.add(cart);
+    }
+    
+    public void removeProductCart(Cart cart){
+      productCart.remove(cart);
+    }
+
+
 }
 

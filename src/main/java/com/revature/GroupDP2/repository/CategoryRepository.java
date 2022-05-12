@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
 
+
 import javax.persistence.TypedQuery;
 import java.util.Optional;
 
 
 @Component
-public class CategoryRepository implements ICategoryRepository<Category>, Lifecycle {
+public class CategoryRepository implements ICategoryRepository<Category>, Lifecycle{
 
     private boolean running = false;
     private StorageManager storageManager;
@@ -102,6 +103,8 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
 
     @Override
     public void stop() {
+        running = false;
+        this.session.close();
 
     }
 
@@ -109,4 +112,7 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
     public boolean isRunning() {
         return running;
     }
+
 }
+
+
