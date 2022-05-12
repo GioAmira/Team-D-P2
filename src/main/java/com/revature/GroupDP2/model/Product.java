@@ -28,9 +28,11 @@ public class Product {
     private Double price;
 
     @ManyToOne
+    @JoinColumn
     private Category category;
 
     @ManyToMany
+    @Column
     private List<Cart> productCart;
 
     public Product(Category category, String productName, String description, Double price) {

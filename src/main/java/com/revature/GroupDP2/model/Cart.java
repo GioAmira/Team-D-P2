@@ -1,7 +1,6 @@
 package com.revature.GroupDP2.model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,9 +14,11 @@ public class Cart {
     private Integer id;
 
     @OneToOne(mappedBy = "cart")
+    @JoinColumn
     private User user;
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
+    @Column
     private List<Product> cartItems = new ArrayList<>();
 
 
