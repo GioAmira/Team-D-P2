@@ -3,23 +3,24 @@ package com.revature.GroupDP2.repository;
 import com.revature.GroupDP2.Irepository.IPaymentRepository;
 import com.revature.GroupDP2.model.Category;
 import com.revature.GroupDP2.model.Payment;
-import com.revature.GroupDP2.util.StorageManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import com.revature.GroupDP2.util.StorageManager;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
-
 import javax.persistence.TypedQuery;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+
 
 /*
     @Component indicates that an annotated class is a "component". Such classes are considered
     as candidates for auto-detection when using annotation-based configuration
     and classpath scanning.
 */
+
 @Component
 public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle {
 
@@ -45,9 +46,12 @@ public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle
               may be made persistent by calling update(), saveOrUpdate(), lock(), or replicate().
      */
     private  Session session;
+    
+    String tableName;
 
     public PaymentRepository(StorageManager storageManager) {
         this.storageManager = storageManager;
+
     }
 
     /*
@@ -114,11 +118,11 @@ public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle
         List<Object[]> results = query.getResultList();
 
         List<Payment> paymentList = new LinkedList<>();
-        for(Object[] result : results) {
+        for (Object[] result : results) {
             Payment payment = new Payment();
-            payment.setId((Integer)result[0]);
+            payment.setId((Integer) result[0]);
             payment.setCardNumber((String) result[1]);
-            payment.setExpirationDate((String)result[2]);
+            payment.setExpirationDate((String) result[2]);
             payment.setCvvNumber((Integer) result[3]);
             paymentList.add(payment);
         }
@@ -131,6 +135,29 @@ public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle
 	   * In the case of a container, this will propagate the start signal to all
 	     components that apply.
    */
+  
+    @Override
+    public Payment getById(Integer id) {
+        String hql = " FROM Payment WHERE id = :id";
+        TypedQuery<Payment> query = session.createQuery(hql, Payment.class);
+
+        query.setParameter("id", id);
+
+        Payment payment = query.getSingleResult();
+
+        return payment;
+    }
+
+    @Override
+    public void delete(Payment payment) {
+        Transaction tx = session.beginTransaction();
+        if (payment != null) {
+            session.delete(payment);
+        }
+        tx.commit();
+    }
+
+
     @Override
     public void start() {
         running = true;
@@ -159,4 +186,6 @@ public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle
         return running;
     }
 
+
 }
+

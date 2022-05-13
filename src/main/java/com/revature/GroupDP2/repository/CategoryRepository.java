@@ -1,14 +1,18 @@
 package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.ICategoryRepository;
-import com.revature.GroupDP2.model.*;
+import com.revature.GroupDP2.model.Category;
+import com.revature.GroupDP2.model.Product;
 import com.revature.GroupDP2.util.StorageManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
+
+
 import javax.persistence.TypedQuery;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -91,6 +95,11 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
             //throw an exception
         }
     }
+    //ADD METHOD LATER
+    @Override
+    public List<Category> getAll(Category category) {
+        return null;
+    }
 
     @Override
     public void start() {
@@ -102,10 +111,14 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
     public void stop() {
         running = false;
         this.session.close();
+
     }
 
     @Override
     public boolean isRunning() {
         return running;
     }
+
 }
+
+

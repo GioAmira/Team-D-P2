@@ -10,7 +10,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
     private Integer id;
+
+    @Column(name="username")
+
     @Column(name="username",unique = true)
+
     private String userName;
     @Column(name="password")
     private String password;
@@ -32,6 +36,9 @@ public class User {
     private String state;
     @Column(name="zip_code")
     private String zipCode;
+
+
+    @OneToOne(mappedBy = "user")
 
     @OneToOne
     @JoinColumn(name = "cart_id")
