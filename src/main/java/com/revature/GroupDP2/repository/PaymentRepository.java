@@ -1,7 +1,6 @@
 package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.IPaymentRepository;
-import com.revature.GroupDP2.model.Category;
 import com.revature.GroupDP2.model.Payment;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -111,7 +110,7 @@ public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle
         return payment;
     }
 
-    public List<Payment> getAll() {
+    public List<Payment> getAll(Payment p) {
         String sql = "SELECT * FROM payment";
         Query query = session.createNativeQuery(sql);
 
@@ -136,7 +135,7 @@ public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle
 	     components that apply.
    */
   
-    @Override
+
     public Payment getById(Integer id) {
         String hql = " FROM Payment WHERE id = :id";
         TypedQuery<Payment> query = session.createQuery(hql, Payment.class);
@@ -148,14 +147,6 @@ public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle
         return payment;
     }
 
-    @Override
-    public void delete(Payment payment) {
-        Transaction tx = session.beginTransaction();
-        if (payment != null) {
-            session.delete(payment);
-        }
-        tx.commit();
-    }
 
 
     @Override
