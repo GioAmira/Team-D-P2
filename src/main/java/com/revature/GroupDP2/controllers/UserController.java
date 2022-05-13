@@ -18,7 +18,7 @@ public class UserController {
             return userService.login(user).get();
     }
     @PostMapping
-    public User regester(@RequestBody User user) throws Exception {
+    public User register(@RequestBody User user) throws Exception {
             return userService.register(user).get();
 
     }
