@@ -24,8 +24,9 @@ public class GroupDp2Application {
 		//this is how you get a bean, beans act as global
 		StorageManager storageManager = context.getBean(StorageManager.class);
 		storageManager.addAnnotatedClass(User.class,Cart.class,Category.class,Product.class,Payment.class);
-		/*
 		context.start();
+		/*
+
 		Cart cart= new Cart();
 		Product product=new Product();
 		context.getBean(CartRepository.class).create(cart);

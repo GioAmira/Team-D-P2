@@ -27,6 +27,15 @@ public class Cart {
         cartItems = new ArrayList<>();
     }
 
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", user=" + user +
+                ", cartItems=" + cartItems +
+                '}';
+    }
+
     public Cart() {
         cartItems = new ArrayList<>();
     }
@@ -34,9 +43,8 @@ public class Cart {
     public void addCartItem(Product product){
         cartItems.add(product);
     }
-    public void deleteCartItem(Product product){
-        cartItems.remove(product);
-    }
+
+    public void deleteCartItem(Product product){cartItems.remove(product);}
 
     public Integer getId() {return id;}
 
@@ -49,7 +57,5 @@ public class Cart {
     public List<Product> getCartItems() {return cartItems;}
 
     public void setCartItems(List<Product> cartItems) {this.cartItems = cartItems;}
-    public void addCartItems(Product product){
-        cartItems.add(product);
-    }
+
 }
