@@ -28,6 +28,7 @@ public class CartRepository implements ICartRepository, Lifecycle {
 
     @Override
     public void create(Cart c) {
+        System.out.println("create method" + this.session);
         Transaction transaction = session.beginTransaction();
         session.save(c);
         transaction.commit();
@@ -53,6 +54,7 @@ public class CartRepository implements ICartRepository, Lifecycle {
         session.delete(c);
         transaction.commit();
     }
+
 
     @Override
     public void start() {
