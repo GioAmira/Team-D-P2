@@ -3,6 +3,7 @@ package com.revature.GroupDP2.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name="product",schema = "groupd")
+@JsonIgnoreProperties
 public class Product {
 
     @Id
@@ -35,6 +37,7 @@ public class Product {
     @Column
     private List<Cart> productCart;
 
+
     public Product(Category category, String productName, String description, Double price) {
         this.category = category;
         this.productName = productName;
@@ -44,6 +47,10 @@ public class Product {
     }
     public Product() {
     productCart=new ArrayList<>();
+    }
+
+    public static void setCategoryId(Integer integer) {
+
     }
 
     public Long getProduct_id() {
@@ -86,6 +93,26 @@ public class Product {
         this.category = category;
     }
 
+
+
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+
+    public void setProductId(Integer integer) {
+
+    }
+
+    public void setUserId(String s) {
+
+    }
+
+    public Integer getId() {
+        return null;
+    }
+
     public String getProductName() {
         return productName;
     }
@@ -106,5 +133,10 @@ public class Product {
       productCart.remove(cart);
     }
 
+
+    public Integer getCategoryId() {
+        return null;
+    }
 }
+
 

@@ -3,22 +3,21 @@ package com.revature.GroupDP2.repository;
 import com.revature.GroupDP2.Irepository.IProductRepository;
 import com.revature.GroupDP2.model.Product;
 import com.revature.GroupDP2.util.StorageManager;
-import com.revature.GroupDP2.util.TransactionManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.Lifecycle;
-import org.springframework.stereotype.Repository;
-
+import org.springframework.stereotype.Component;
 import javax.persistence.TypedQuery;
+import java.util.List;
 import java.util.Optional;
 
-@Repository
+    @Component
 public class ProductRepository implements IProductRepository<Product>, Lifecycle {
 
     private final StorageManager storageManager;
     private Session session;
-    private boolean running=false;
+    private boolean running = false;
 
     @Autowired
     public ProductRepository(StorageManager storageManager) {
@@ -61,6 +60,16 @@ public class ProductRepository implements IProductRepository<Product>, Lifecycle
     }
 
     @Override
+    public List<Product> getAll(Product product) {
+        return null;
+    }
+
+    @Override
+    public Object getById(Integer id) {
+        return null;
+    }
+
+    @Override
     public Product getByUserId(int l) {
         return null;
     }
@@ -82,3 +91,4 @@ public class ProductRepository implements IProductRepository<Product>, Lifecycle
         return running;
     }
 }
+
