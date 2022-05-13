@@ -11,8 +11,6 @@ public class User {
     @Column(name = "user_id", nullable = false)
     private Integer id;
 
-    @Column(name="username")
-
     @Column(name="username",unique = true)
 
     private String userName;
@@ -37,8 +35,6 @@ public class User {
     @Column(name="zip_code")
     private String zipCode;
 
-
-    @OneToOne(mappedBy = "user")
 
     @OneToOne
     @JoinColumn(name = "cart_id")

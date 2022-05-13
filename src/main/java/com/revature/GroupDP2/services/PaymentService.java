@@ -24,15 +24,15 @@ public class PaymentService {
     }
 
     public Optional<Payment> getPaymentById(Integer id) {
-        return paymentRepo.getById(id);
+         return Optional.ofNullable(paymentRepo.getById(id));
     }
 
     public Payment getPaymentByCardNumber(Payment payment){
         return paymentRepo.getPaymentByCardNumber(payment);
     }
 
-    public List<Payment> getAll() {
-        return paymentRepo.getAll();
+    public List<Payment> getAll(Payment payment) {
+        return paymentRepo.getAll(payment);
     }
 
     public void delete(Payment payment) {
