@@ -4,7 +4,6 @@ package com.revature.GroupDP2.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +36,6 @@ public class Product {
     @ManyToMany
     @Column
     private List<Cart> productCart;
-
-    @ManyToOne
-    private Cart productCart;
-    private int id;
-
 
 
     public Product(Category category, String productName, String description, Double price) {
@@ -140,5 +134,9 @@ public class Product {
     }
 
 
+    public Integer getCategoryId() {
+        return null;
+    }
 }
+
 

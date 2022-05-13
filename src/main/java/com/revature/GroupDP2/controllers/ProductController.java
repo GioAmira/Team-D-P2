@@ -2,8 +2,7 @@ package com.revature.GroupDP2.controllers;
 
 import com.revature.GroupDP2.dtos.AuthDto;
 import com.revature.GroupDP2.model.Product;
-
-import com.revature.GroupDP2.services.ProductServices;
+import com.revature.GroupDP2.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -16,12 +15,12 @@ import java.util.List;
 @RequestMapping(path ="/product")
 public class ProductController {
 
-    ProductServices productServices;
+    ProductService productService;
 
 
     @Autowired
-    public ProductController(ProductServices productServices) {
-        this.productServices = productServices;
+    public ProductController(ProductService productServices) {
+        this.productService = productServices;
 
     }
 
@@ -29,7 +28,7 @@ public class ProductController {
     @GetMapping("/{productorId")
     @ResponseStatus(HttpStatus.OK)
     public List<Product> getAllProduct() {
-        return productServices.getAllProduct;
+        return productService.getAllProduct;
     }
 
         //get product by productname
@@ -39,9 +38,9 @@ public class ProductController {
         Exception {
         switch (mode) {
             case "productname":
-                return productServices.getProductByProductname(productnameorId);
+                return productService.getProductByProductname(productnameorId);
             case "id":
-                return productServices.getProductById(Integer.parseInt(productnameorId));
+                return (String) productService.getProductById(Integer.parseInt(productnameorId));
             default:
                 throw new Exception("That's not a valid mode");
                 //TODO: Make this better
@@ -51,30 +50,29 @@ public class ProductController {
         //post a new product - auto generate the ID
         @PostMapping()
         @ResponseStatus(HttpStatus.OK)
-        public Product persistNewProduct (@RequestBody Product newProduct){
-            Object persistNewProduct = null;
-            return productServices.save(persistNewProduct);
+        public void persistNewProduct (@RequestBody Product newProduct){
+            productService.createProduct(newProduct);
     }
         @GetMapping("/auth")
         @ResponseStatus(HttpStatus.OK)
         public AuthDto authorizeProduct (@RequestBody AuthDto authDto) throws Exception {
-        return productServices.authenticateProduct(authDto);
+        return productService.authenticateProduct(authDto);
         //TODO: ResponseEntity<User> use this object to send back a different response for unauthorized
     }
 
         //put (update) an existing user (based on id)
         @PutMapping
         @ResponseStatus(HttpStatus.OK)
-        public Product updateProduct (@RequestBody Product product){
-        return productServices.update(product);
+        public void updateProduct (@RequestBody Product product){
+        productService.update(product);
     }
         @DeleteMapping
         @ResponseStatus(HttpStatus.OK)
         public Product deleteProduct (@RequestBody Product product){
-        return productServices.delete(product);
+        return productService.delete(product);
     }
 
-    private class ProductServices {
+    protected class ProductServices {
         public List<Product> getAllProduct;
 
         public String getProductByProductname(String productnameorId) {
@@ -89,8 +87,8 @@ public class ProductController {
             return new Product();
         }
 
-        public Product update(Product product) {
-            return product;
+        public void update(Product product) {
+            ;
         }
 
         public Product delete(Product product) {
@@ -106,4 +104,85 @@ public class ProductController {
 }
 
 
+/*import com.revature.GroupDP2.model.Product;
+import com.revature.GroupDP2.services.ProductService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
+@Controller
+public abstract class ProductController {
+
+    private ProductService productService;
+
+    public ProductController(ProductService productService) {
+        super();
+        this.productService = productService;
+    }
+
+    // handler method to handle list students and return mode and view
+    @GetMapping("/product")
+    public String listProduct(Model model) {
+        model.addAttribute("product", productService.getAllProduct());
+        return "product";
+    }
+
+    @GetMapping("/product/new")
+    public String createProductForm(Model model) {
+
+        // create student object to hold student form data
+        Product product = new Product();
+        model.addAttribute("product", product);
+        return "create_product";
+
+    }
+
+    @PostMapping("/product")
+    public String saveProduct(@ModelAttribute("product") Product product) {
+        productService.saveProduct(product);
+        return "redirect:/product";
+    }
+
+    @GetMapping("/product/edit/{id}")
+    public String editProductForm(@PathVariable Integer id, Model model) {
+        model.addAttribute("product", productService.getProductById(id));
+        return "edit_product";
+    }
+
+    @PostMapping("/product/{id}")
+    public String updateProduct(@PathVariable Integer id,
+                                @ModelAttribute("product") Product product,
+                                Model model) {
+
+        // get student from database by id
+        Product existingProduct = (Product) ProductService.getProductById(id);
+        existingProduct.setId(id);
+        existingProduct.setProductName(product.getProductName());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setPrice(product.getPrice());
+        existingProduct.setCategoryId(product.getCategoryId());
+
+        // save updated student object
+        productService.updateProduct(existingProduct);
+        return "redirect:/product";
+    }
+
+    // handler method to handle delete student request
+
+    @GetMapping("/product/{id}")
+    public String deleteProduct(@PathVariable Interger id) {
+        productService.deleteProductById(id);
+        return "redirect:/product";
+    }
+
+    public abstract List<Product> getAllProduct();
+
+    public class Interger {
+    }
+}
+*/

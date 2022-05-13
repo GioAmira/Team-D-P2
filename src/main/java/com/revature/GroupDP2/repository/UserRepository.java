@@ -29,23 +29,16 @@ public class UserRepository implements IUserRepository, Lifecycle {
     }
 
 
-  
-    @Autowired
-    public UserRepository(StorageManager storageManager) {
-        this.storageManager = storageManager;
-    }
-
-
     @Override
     public void create(User o) {
-        Transaction t=session.beginTransaction();
+        Transaction t = session.beginTransaction();
         session.save(o);
         t.commit();
     }
 
     @Override
     public void update(User o) {
-        Transaction t=session.beginTransaction();
+        Transaction t = session.beginTransaction();
         session.update(o);
         t.commit();
     }
@@ -53,63 +46,47 @@ public class UserRepository implements IUserRepository, Lifecycle {
     //maybe we want to return an optional?
     @Override
     public Optional<User> getById(int t) {
-        try{
-        TypedQuery<User> query = session.createQuery("FROM User WHERE id= :id",User.class);
-        query.setParameter("id",t);
-        return Optional.ofNullable(query.getSingleResult());
-    } catch(NoResultException e){
-        return Optional.empty();
-    }
-    }
-
-    @Override
-    public void delete(User o) {
-        Transaction t=session.beginTransaction();
-        session.delete(o);
-        t.commit();
-    }
-
-    @Override
-    public Optional<User> getByUsername(String username) {
         try {
-            TypedQuery<User> query = session.createQuery("FROM User WHERE userName= :userName", User.class);
-            query.setParameter("userName", username);
+            TypedQuery<User> query = session.createQuery("FROM User WHERE id= :id", User.class);
+            query.setParameter("id", t);
             return Optional.ofNullable(query.getSingleResult());
-        } catch(NoResultException e){
+        } catch (NoResultException e) {
             return Optional.empty();
         }
-    }
+
+        @Override
+        public void delete (User o){
+            Transaction t = session.beginTransaction();
+            session.delete(o);
+            t.commit();
+        }
+
+        @Override
+        public Optional<User> getByUsername (String username){
+            try {
+                TypedQuery<User> query = session.createQuery("FROM User WHERE userName= :userName", User.class);
+                query.setParameter("userName", username);
+                return Optional.ofNullable(query.getSingleResult());
+            } catch (NoResultException e) {
+                return Optional.empty();
+            }
 
 
-    @Override
-    public void start() {
-        session=storageManager.getSession();
-        running=true;
-    }
+            @Override
+            public void start () {
+                session = storageManager.getSession();
+                running = true;
+            }
 
-    @Override
-    public void stop() {
-    running=false;
-    }
+            @Override
+            public void stop () {
+                running = false;
+            }
 
-    @Override
-    public boolean isRunning() {
-        return running;
-    }
-
-    @Override
-    public void start() {
-        session=storageManager.getSession();
-        running=true;
-    }
-
-    @Override
-    public void stop() {
-        running=false;
-    }
-
-    @Override
-    public boolean isRunning() {
-        return running;
+            @Override
+            public boolean isRunning () {
+                return running;
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ public class PaymentRepository implements IPaymentRepository<Payment> {
     private final Session session;
     String tableName;
 
-    public PaymentRepository(Session session , String tableName) {
+    public PaymentRepository(Session session, String tableName) {
         this.session = session;
         this.tableName = tableName;
 
@@ -109,3 +109,4 @@ public class PaymentRepository implements IPaymentRepository<Payment> {
 
         }
     }
+}

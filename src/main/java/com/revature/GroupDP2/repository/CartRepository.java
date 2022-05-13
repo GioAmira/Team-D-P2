@@ -2,11 +2,8 @@ package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.ICartRepository;
 import com.revature.GroupDP2.model.Cart;
-<<<<<<< HEAD
 import com.revature.GroupDP2.model.Product;
-=======
 import com.revature.GroupDP2.util.StorageManager;
->>>>>>> 2b3760bc5688d5d8eaa7326eee87c25b05134f3d
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,10 +46,11 @@ public class CartRepository implements ICartRepository, Lifecycle {
     }
 
     @Override
-    public void delete(Cart c) {
+    public Product delete(Cart c) {
         Transaction transaction = session.beginTransaction();
         session.delete(c);
         transaction.commit();
+        return null;
     }
 
 

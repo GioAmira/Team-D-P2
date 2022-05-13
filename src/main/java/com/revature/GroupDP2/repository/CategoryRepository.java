@@ -84,7 +84,7 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
     }
 
     @Override
-    public void delete(Category category) {
+    public Product delete(Category category) {
         if (session != null){
             Transaction transaction = session.beginTransaction();
             session.delete(category);
@@ -93,6 +93,7 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
         else{
             //throw an exception
         }
+        return null;
     }
 
     @Override

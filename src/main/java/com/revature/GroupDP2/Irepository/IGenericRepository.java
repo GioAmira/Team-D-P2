@@ -1,15 +1,16 @@
 package com.revature.GroupDP2.Irepository;
 
-<<<<<<< HEAD
+
 import com.revature.GroupDP2.model.Product;
 
-=======
->>>>>>> 2b3760bc5688d5d8eaa7326eee87c25b05134f3d
+import java.util.List;
 import java.util.Optional;
 
 public interface IGenericRepository<T> {
-    Product create(T t);
-    Object update(T t);
+    void create(T t);
+    void update(T t);
     Optional<T> getById(int t);
+
+    List<T>getAll(T t);
     void delete(T t);
 }
