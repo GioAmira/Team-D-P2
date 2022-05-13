@@ -43,8 +43,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-<<<<<<< HEAD
-=======
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
@@ -76,7 +74,6 @@
 			<artifactId>gson</artifactId>
 			<version>2.9.0</version>
 		</dependency>
->>>>>>> 2b3760bc5688d5d8eaa7326eee87c25b05134f3d
 	</dependencies>
 
 	<build>
