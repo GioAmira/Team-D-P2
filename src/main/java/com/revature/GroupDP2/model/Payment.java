@@ -1,7 +1,6 @@
 package com.revature.GroupDP2.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "payment", schema = "groupd")
