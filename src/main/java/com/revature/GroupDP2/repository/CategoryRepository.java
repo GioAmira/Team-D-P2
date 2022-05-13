@@ -65,7 +65,9 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
             //throw an exception
         }
     }
-
+    public void something(){
+        System.out.println("something");
+    }
     @Override
     public Optional<Category> getById(int t) {
         Category category = null;
@@ -79,7 +81,6 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
         }
         return Optional.ofNullable(category);
     }
-
     @Override
     public void delete(Category category) {
         if (session != null){
@@ -91,7 +92,6 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
             //throw an exception
         }
     }
-
     @Override
     public void start() {
         running = true;
