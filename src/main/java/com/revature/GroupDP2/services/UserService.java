@@ -4,7 +4,6 @@ import com.revature.GroupDP2.model.User;
 import com.revature.GroupDP2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Optional;
 
 @Service
