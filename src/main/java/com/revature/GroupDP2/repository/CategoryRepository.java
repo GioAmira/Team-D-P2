@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 
 import javax.persistence.TypedQuery;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -70,7 +71,7 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
     }
 
     @Override
-    public Optional<Product> getById(int t) {
+    public Optional<Category> getById(int t) {
         Category category = null;
         if (session != null){
             Transaction transaction = session.beginTransaction();
@@ -84,7 +85,7 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
     }
 
     @Override
-    public Product delete(Category category) {
+    public void delete(Category category) {
         if (session != null){
             Transaction transaction = session.beginTransaction();
             session.delete(category);
@@ -93,6 +94,10 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
         else{
             //throw an exception
         }
+    }
+    //ADD METHOD LATER
+    @Override
+    public List<Category> getAll(Category category) {
         return null;
     }
 

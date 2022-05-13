@@ -11,6 +11,7 @@ import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
+import java.util.List;
 import java.util.Optional;
 @Repository
 public class CartRepository implements ICartRepository, Lifecycle {
@@ -39,20 +40,24 @@ public class CartRepository implements ICartRepository, Lifecycle {
     }
 
     @Override
-    public Optional<Product> getById(int t) {
+    public Optional<Cart> getById(int t) {
         TypedQuery<Cart> query = session.createQuery("FROM Cart WHERE id = :id",Cart.class);
         query.setParameter("id",t);
         return Optional.ofNullable(query.getSingleResult());
     }
 
     @Override
-    public Product delete(Cart c) {
+    public void delete(Cart c) {
         Transaction transaction = session.beginTransaction();
         session.delete(c);
         transaction.commit();
-        return null;
     }
 
+    //NEED TO FINISH THIS METHOD
+    @Override
+    public List<Cart> getAll(Cart cart) {
+        return null;
+    }
 
     @Override
     public void start() {
