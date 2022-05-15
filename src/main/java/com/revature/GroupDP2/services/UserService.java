@@ -21,8 +21,10 @@ public class UserService {
     public Optional<User> register(User user) throws Exception {
         if (userRepository.getByUsername(user.getUserName()).isPresent()) {
             throw new Exception("username already taken!");
+        }//email validator. got it online
+        if(!user.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
+            throw new Exception("email invalid!");
         }
-        //TODO
         userRepository.create(user);
         return Optional.of(user);
     }
