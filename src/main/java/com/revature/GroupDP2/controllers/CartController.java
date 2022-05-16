@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -27,10 +29,16 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public void addCart() {
+    public void addCart(HttpServletResponse response) {
+
+        Cookie cookie = new Cookie("hello", "sup");
+
+        response.addCookie(cookie);
+
         Cart cart = new Cart();
 
         cartService.newCart(cart);
+
     }
 
     @PutMapping("/addProduct")

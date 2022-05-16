@@ -4,6 +4,8 @@ import com.revature.GroupDP2.model.User;
 import com.revature.GroupDP2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -21,8 +23,11 @@ public class UserService {
     public Optional<User> register(User user) throws Exception {
         if (userRepository.getByUsername(user.getUserName()).isPresent()) {
             throw new Exception("username already taken!");
+        }//email validator. got it online
+        user.setEmail(user.getEmail().toUpperCase(Locale.ROOT));
+        if(!user.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
+            throw new Exception("email invalid!");
         }
-        //TODO
         userRepository.create(user);
         return Optional.of(user);
     }
@@ -42,6 +47,10 @@ public class UserService {
     public Optional<User> edit(User user) throws Exception {
     Optional<User> oldUser=userRepository.getById(user.getId());
     if(oldUser.isPresent()&&user.getPassword()!=null){
+        user.setEmail(user.getEmail().toUpperCase(Locale.ROOT));
+        if(!user.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) {
+            throw new Exception("email invalid!");
+        }
         oldUser=Optional.of(user);
         return oldUser;
     }

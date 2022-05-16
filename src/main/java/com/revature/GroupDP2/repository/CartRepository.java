@@ -8,6 +8,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Repository;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +56,9 @@ public class CartRepository implements ICartRepository, Lifecycle {
     //NEED TO FINISH THIS METHOD
     @Override
     public List<Cart> getAll() {
-        return null;
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("from Cart");
+        return query.getResultList();
     }
 
     @Override
