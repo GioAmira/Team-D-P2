@@ -57,7 +57,7 @@ public class CartRepository implements ICartRepository, Lifecycle {
     @Override
     public List<Cart> getAll() {
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("from Cart");
+        Query query = session.createQuery("from Cart ");
         return query.getResultList();
 
     }
