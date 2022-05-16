@@ -63,8 +63,8 @@ public class PaymentController {
     }
 
     @GetMapping("/list")
-    public String displayPaymentList(Model model, Payment payment) {
-        List<Payment> aPaymet = paySerRepo.getAll(payment);
+    public String displayPaymentList(Model model) {
+        List<Payment> aPaymet = paySerRepo.getAll();
         model.addAttribute("payment",aPaymet);
         return "payments-list";
     }

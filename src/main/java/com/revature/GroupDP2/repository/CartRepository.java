@@ -54,7 +54,7 @@ public class CartRepository implements ICartRepository, Lifecycle {
 
     //NEED TO FINISH THIS METHOD
     @Override
-    public List<Cart> getAll(Cart cart) {
+    public List<Cart> getAll() {
         return null;
     }
 
