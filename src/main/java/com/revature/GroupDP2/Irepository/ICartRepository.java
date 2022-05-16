@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ICartRepository extends IGenericRepository<Cart>{
 
+    //NEED TO FINISH THIS METHOD
+    List<Cart> getAll();
 }
