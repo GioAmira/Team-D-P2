@@ -34,7 +34,6 @@ public class User {
     private String state;
     @Column(name="zip_code")
     private String zipCode;
-
     @OneToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
