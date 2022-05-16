@@ -25,18 +25,18 @@ public class GroupDp2Application {
 		StorageManager storageManager = context.getBean(StorageManager.class);
 		storageManager.addAnnotatedClass(User.class,Cart.class,Category.class,Product.class,Payment.class);
 		context.start();
-		/*
+
 
 		Cart cart= new Cart();
 		Product product=new Product();
 		context.getBean(CartRepository.class).create(cart);
 		context.getBean(ProductRepository.class).create(product);
-		cart.addCartItems(product);
-		product.addItem(cart);
+		cart.addCartItem(product);
+		product.addProductCart(cart);
 		context.getBean(CartRepository.class).update(cart);
 		context.getBean(ProductRepository.class).update(product);
 		Session session = storageManager.getSession();
-		*/
+
 	}
 }
 

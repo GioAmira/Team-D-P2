@@ -34,7 +34,7 @@ public class Product {
     private Category category;
   
     @ManyToMany
-    @Column
+    //@Column
     private List<Cart> productCart;
 
 
