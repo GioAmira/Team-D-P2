@@ -5,6 +5,8 @@ import com.revature.GroupDP2.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
     private final CategoryRepository categoryRepository;
@@ -16,5 +18,9 @@ public class CategoryService {
     public void create(Category category){
 
         categoryRepository.create(category);
+    }
+
+    public List<Category> getAll(){
+        return categoryRepository.getAll();
     }
 }

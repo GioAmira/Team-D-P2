@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,11 +97,12 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
         }
     }
 
-    //ADD METHOD LATER
     @Override
     public List<Category> getAll() {
-        return null;
+        TypedQuery<Category> query = session.createQuery("FROM Category", Category.class);
+        return query.getResultList();
     }
+
     @Override
     public void start() {
         running = true;

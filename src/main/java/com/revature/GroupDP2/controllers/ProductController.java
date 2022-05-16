@@ -14,7 +14,6 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(path ="/product")
 public class ProductController {
-
     ProductService productService;
 
 

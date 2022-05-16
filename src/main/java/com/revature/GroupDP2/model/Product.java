@@ -1,8 +1,5 @@
 package com.revature.GroupDP2.model;
 
-
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +13,7 @@ import java.util.List;
 public class Product {
 
     @Id
-    @Column(name = "product_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer product_id;
 

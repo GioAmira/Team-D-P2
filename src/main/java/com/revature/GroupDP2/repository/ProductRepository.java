@@ -60,7 +60,7 @@ public class ProductRepository implements IProductRepository<Product>, Lifecycle
     }
 
     @Override
-    public List<Product> getAll(Product product) {
+    public List<Product> getAll() {
         return null;
     }
 
