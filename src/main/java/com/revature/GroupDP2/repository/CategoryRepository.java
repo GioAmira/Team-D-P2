@@ -2,7 +2,6 @@ package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.ICategoryRepository;
 import com.revature.GroupDP2.model.Category;
-import com.revature.GroupDP2.model.Product;
 import com.revature.GroupDP2.util.StorageManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -99,7 +98,7 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
 
     //ADD METHOD LATER
     @Override
-    public List<Category> getAll(Category category) {
+    public List<Category> getAll() {
         return null;
     }
     @Override

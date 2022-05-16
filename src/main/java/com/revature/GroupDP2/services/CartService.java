@@ -38,6 +38,11 @@ public class CartService {
 
     public void checkout(Cart cart) {
         cartRepository.delete(cart);
+
+    }
+
+    public List<Cart> getAll() {
+        return cartRepository.getAll();
     }
 
     public Cart addProduct(Product product, Cart cart) {
