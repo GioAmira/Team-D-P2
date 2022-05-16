@@ -10,7 +10,7 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @OneToOne(mappedBy = "cart")
@@ -19,7 +19,7 @@ public class Cart {
 
     @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE,CascadeType.REFRESH, CascadeType.PERSIST}, fetch=FetchType.LAZY)
     @Column
-    private List<Product> cartItems = new ArrayList<>();
+    private List<Product> cartItems;
 
 
     public Cart(User user) {
