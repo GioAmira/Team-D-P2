@@ -33,9 +33,9 @@ public class Product {
     @JoinColumn
     private Category category;
   
-    @ManyToMany
+    //@ManyToMany
     //@Column
-    private List<Cart> productCart;
+    //private List<Cart> productCart;
 
 
     public Product(Category category, String productName, String description, Double price) {
@@ -43,10 +43,10 @@ public class Product {
         this.productName = productName;
         this.description = description;
         this.price = price;
-        productCart=new ArrayList<>();
+        //productCart=new ArrayList<>();
     }
     public Product() {
-    productCart=new ArrayList<>();
+    //productCart=new ArrayList<>();
     }
 
     public static void setCategoryId(Integer integer) {
@@ -116,7 +116,7 @@ public class Product {
     public String getProductName() {
         return productName;
     }
-
+/*
     public List<Cart> getProductCart() {
         return productCart;
     }
@@ -132,7 +132,7 @@ public class Product {
     public void removeProductCart(Cart cart){
       productCart.remove(cart);
     }
-
+*/
 
     public Integer getCategoryId() {
         return null;

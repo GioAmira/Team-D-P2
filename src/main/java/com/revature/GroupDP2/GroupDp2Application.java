@@ -32,7 +32,7 @@ public class GroupDp2Application {
 		context.getBean(CartRepository.class).create(cart);
 		context.getBean(ProductRepository.class).create(product);
 		cart.addCartItem(product);
-		product.addProductCart(cart);
+		//product.addProductCart(cart);
 		context.getBean(CartRepository.class).update(cart);
 		context.getBean(ProductRepository.class).update(product);
 		Session session = storageManager.getSession();
