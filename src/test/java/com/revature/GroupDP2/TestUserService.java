@@ -1,5 +1,8 @@
 package com.revature.GroupDP2;
 
+import com.revature.GroupDP2.exceptions.InvalidEmailException;
+import com.revature.GroupDP2.exceptions.UnableException;
+import com.revature.GroupDP2.exceptions.UnauthorizedException;
 import com.revature.GroupDP2.model.User;
 import com.revature.GroupDP2.repository.UserRepository;
 import com.revature.GroupDP2.services.UserService;
@@ -9,6 +12,8 @@ import org.junit.jupiter.api.parallel.Execution;
 
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -63,5 +68,62 @@ public class TestUserService {
         });
         Assertions.assertEquals("email invalid!", thrown.getMessage());
     }
+    @Test
+    public void testLoginSuccess() throws Exception {
+        when(userRepository.getByUsername("username")).thenReturn(Optional.of(tu1));
+        Assertions.assertEquals(userService.login(tu1),tu1);
+    }
+    @Test
+    public void testLoginFailure(){
+        when(userRepository.getByUsername("username")).thenReturn(Optional.empty());
+        Assertions.assertThrows(UnauthorizedException.class, () -> {
+            userService.login(tu1);
+        });
+    }
+    @Test
+    public void testEditSuccessWhileNotUpdateing() throws Exception{
+        tu1.setId(5);
+        when(userRepository.getById(5)).thenReturn(Optional.of(tu1));
+        Assertions.assertEquals(userService.edit(tu1),tu1);
+    }
+    @Test
+    public void testEditSuccessWhileUpdating() throws Exception {
+        tu1.setId(5);
+        when(userRepository.getById(5)).thenReturn(Optional.of(tu1));
+        User tu3= new User("newUsername","password",true,"John","Test",
+                "EMAIL@EMAIL.COM","phone","street","Hudson","state","zip");
+        tu3.setId(5);
+        User out =userService.edit(tu3);
+        Assertions.assertEquals(out,tu3);
+    }
+    @Test
+    public void testEditFailureBadEmail(){
+        when(userRepository.getById(5)).thenReturn(Optional.of(tu1));
+        tu2.setId(5);
+        tu2.setEmail("BADEMAIL");
+        Assertions.assertThrows(InvalidEmailException.class, () -> {
+            userService.edit(tu2);
+        });
+    }
+    @Test
+    public void testEditFailBadID(){
+        when(userRepository.getById(5)).thenReturn(Optional.empty());
+        tu2.setId(5);
+        Assertions.assertThrows(UnableException.class, () -> {
+            userService.edit(tu2);
+        });
+    }
+    @Test
+    public void testUnRegesterSuccess() throws Exception {
+        when(userRepository.getByUsername("username")).thenReturn(Optional.of(tu1));
+        Assertions.assertEquals(tu1,userService.unRegester(tu1));
+    }
+    @Test
+    public void testUnRegesterFailure(){
+        when(userRepository.getByUsername("username")).thenReturn(Optional.empty());
+        Assertions.assertThrows(UnableException.class, () -> {
+            userService.unRegester(tu1);
+        });
 
+    }
 }

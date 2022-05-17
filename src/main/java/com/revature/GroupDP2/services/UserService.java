@@ -1,5 +1,9 @@
 package com.revature.GroupDP2.services;
 
+import com.revature.GroupDP2.exceptions.AlredyExsistsException;
+import com.revature.GroupDP2.exceptions.InvalidEmailException;
+import com.revature.GroupDP2.exceptions.UnableException;
+import com.revature.GroupDP2.exceptions.UnauthorizedException;
 import com.revature.GroupDP2.model.User;
 import com.revature.GroupDP2.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,23 +24,23 @@ public class UserService {
     2. check if email is valid
     3. check if there is a password
      */
-    public Optional<User> register(User user) throws Exception {
+    public User register(User user) throws Exception {
         if (userRepository.getByUsername(user.getUserName()).isPresent()) {
-            throw new Exception("username already taken!");
+            throw new AlredyExsistsException("username already taken!");
         }//email validator. got it online
         user.setEmail(user.getEmail().toUpperCase(Locale.ROOT));
         if(!user.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")){
-            throw new Exception("email invalid!");
+            throw new InvalidEmailException("email invalid!");
         }
         userRepository.create(user);
-        return Optional.of(user);
+        return user;
     }
-    public Optional<User> login(User user) throws Exception{
+    public User login(User user) throws Exception{
         Optional<User> oldUser=userRepository.getByUsername(user.getUserName());
         if(oldUser.isPresent()&&oldUser.get().getPassword().equals(user.getPassword())){
-            return oldUser;
+            return oldUser.get();
         }
-        throw new Exception("login fail!");
+        throw new UnauthorizedException("login fail!");
     }
     /*
     1. see if exists
@@ -44,24 +48,24 @@ public class UserService {
     3.see if email is valid
     4. update
      */
-    public Optional<User> edit(User user) throws Exception {
+    public User edit(User user) throws Exception {
     Optional<User> oldUser=userRepository.getById(user.getId());
     if(oldUser.isPresent()&&user.getPassword()!=null){
         user.setEmail(user.getEmail().toUpperCase(Locale.ROOT));
         if(!user.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) {
-            throw new Exception("email invalid!");
+            throw new InvalidEmailException("email invalid!");
         }
         oldUser=Optional.of(user);
-        return oldUser;
+        return oldUser.get();
     }
-        throw new Exception("update fail!");
+        throw new UnableException("update fail!");
     }
     public User unRegester(User user) throws Exception {
-        Optional<User> oldUser =userRepository.getById(user.getId());
+        Optional<User> oldUser =userRepository.getByUsername(user.getUserName());
         if(oldUser.isPresent()){
             userRepository.delete(oldUser.get());
             return oldUser.get();
         }
-        throw new Exception("could not delete!");
+        throw new UnableException("could not delete!");
     }
 }
