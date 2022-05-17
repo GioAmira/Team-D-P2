@@ -33,13 +33,14 @@ public class ProductService {
          productRepository.delete((Product) product);
     }
 
-    public static Object getProductById(Integer id) {
-        return null;
+    public Product getProductById(Integer id) {
+        return productRepository.getById(id);
     }
 
 
-    public String getProductByProductname(String productnameorId) {
-        return null;
+    public Product getProductByProductname(String productnameorId) {
+
+       return productRepository.getProductByProductName(productnameorId);
     }
 
     public AuthDto authenticateProduct(AuthDto authDto) {

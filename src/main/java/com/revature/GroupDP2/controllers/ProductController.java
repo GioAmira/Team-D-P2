@@ -30,13 +30,13 @@ public class ProductController {
         //get product by productname
     @GetMapping("/{productnameorId}")
     @ResponseStatus(HttpStatus.OK)
-    public String getProduct (@PathVariable String productnameorId, @RequestHeader("mode") String mode) throws
+    public Product getProduct (@PathVariable String productnameorId, @RequestHeader("mode") String mode) throws
     Exception {
     switch (mode) {
         case "productname":
             return productService.getProductByProductname(productnameorId);
         case "id":
-            return (String) productService.getProductById(Integer.parseInt(productnameorId));
+            return productService.getProductById(Integer.parseInt(productnameorId));
         default:
             throw new Exception("That's not a valid mode");
             //TODO: Make this better
