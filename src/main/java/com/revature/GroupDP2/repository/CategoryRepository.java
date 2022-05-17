@@ -32,19 +32,6 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
     }
 
     @Override
-    public Category getByCategoryName(Category category) {
-        if (session != null){
-            TypedQuery<Category> query = session.createQuery("FROM Category WHERE categoryName = :categoryName",Category.class);
-            query.setParameter("categoryName", category.getCategoryName());
-            category = query.getSingleResult();
-        }
-        else{
-            //throw an exception
-        }
-        return category;
-    }
-
-    @Override
     public void create(Category category) {
         System.out.println("we are here and maybe session is null");
         if (session != null){
@@ -69,9 +56,19 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
             //throw an exception
         }
     }
-    public void something(){
-        System.out.println("something");
+
+    @Override
+    public void delete(Category category) {
+        if (session != null){
+            Transaction transaction = session.beginTransaction();
+            session.delete(category);
+            transaction.commit();
+        }
+        else{
+            //throw an exception
+        }
     }
+
     @Override
     public Optional<Category> getById(int t) {
         Category category = null;
@@ -85,16 +82,18 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
         }
         return Optional.ofNullable(category);
     }
+
     @Override
-    public void delete(Category category) {
+    public Category getByCategoryName(Category category) {
         if (session != null){
-            Transaction transaction = session.beginTransaction();
-            session.delete(category);
-            transaction.commit();
+            TypedQuery<Category> query = session.createQuery("FROM Category WHERE categoryName = :categoryName",Category.class);
+            query.setParameter("categoryName", category.getCategoryName());
+            category = query.getSingleResult();
         }
         else{
             //throw an exception
         }
+        return category;
     }
 
     @Override

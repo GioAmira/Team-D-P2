@@ -25,9 +25,23 @@ public class CategoryController {
         categoryService.create(category);
     }
 
-    @GetMapping("/getAll")
+    @PutMapping
+    public void update(@RequestBody Category category){
+
+        categoryService.update(category);
+    }
+
+    @DeleteMapping
+    public void delete (@RequestBody Category category){
+
+        categoryService.delete(category);
+    }
+
+    @GetMapping
     public List<Category> getAll(){
+
         return categoryService.getAll();
     }
+
 
 }

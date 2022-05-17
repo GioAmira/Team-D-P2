@@ -20,7 +20,19 @@ public class CategoryService {
         categoryRepository.create(category);
     }
 
+    public void update(Category category){
+
+        categoryRepository.update(category);
+    }
+
+    public void delete(Category category){
+
+        categoryRepository.delete(category);
+    }
+
     public List<Category> getAll(){
+
         return categoryRepository.getAll();
     }
+
 }
