@@ -52,10 +52,9 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
         }
     }
 
-    public void patch(int id, Category category){
+    public void patch(Category category){
         if (session != null){
             Transaction transaction = session.beginTransaction();
-            category.setCategoryId(id);
             session.merge(category);
             transaction.commit();
         }
