@@ -42,7 +42,14 @@ public class CartService {
     }
 
     public List<Cart> getAll() {
-        return cartRepository.getAll();
+
+        List<Cart> output = cartRepository.getAll();
+
+        for(Cart i : output){
+            System.out.println(i);
+        }
+
+        return output;
     }
 
     public Cart addProduct(Product product, Cart cart) {
@@ -57,9 +64,7 @@ public class CartService {
         return cart;
     }
 
-    public List<Product> getCartItems(Cart cart) {
-        return cart.getCartItems();
-    }
+    public List<Product> getCartItems(Cart cart) {return cart.getCartItems();}
 
 
 }

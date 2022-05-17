@@ -8,5 +8,5 @@ public interface ICategoryRepository<Category> extends IGenericRepository<Catego
     Category getByCategoryName (Category category);
 
     //ADD METHOD LATER
-    List<com.revature.GroupDP2.model.Category> getAll();
+    List<Category> getAll();
 }
