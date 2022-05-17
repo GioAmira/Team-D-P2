@@ -2,7 +2,6 @@ package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.ICategoryRepository;
 import com.revature.GroupDP2.model.Category;
-import com.revature.GroupDP2.model.Product;
 import com.revature.GroupDP2.util.StorageManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 
 import javax.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,7 +69,9 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
             //throw an exception
         }
     }
-
+    public void something(){
+        System.out.println("something");
+    }
     @Override
     public Optional<Category> getById(int t) {
         Category category = null;
@@ -83,7 +85,6 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
         }
         return Optional.ofNullable(category);
     }
-
     @Override
     public void delete(Category category) {
         if (session != null){
@@ -95,10 +96,11 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
             //throw an exception
         }
     }
-    //ADD METHOD LATER
+
     @Override
-    public List<Category> getAll(Category category) {
-        return null;
+    public List<Category> getAll() {
+        TypedQuery<Category> query = session.createQuery("FROM Category", Category.class);
+        return query.getResultList();
     }
 
     @Override

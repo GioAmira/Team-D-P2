@@ -15,16 +15,16 @@ public class UserController {
     }
     @GetMapping
     public User login(@RequestBody User user)throws Exception{
-            return userService.login(user).get();
+            return userService.login(user);
     }
     @PostMapping
     public User register(@RequestBody User user) throws Exception {
-            return userService.register(user).get();
+            return userService.register(user);
 
     }
     @PutMapping
     public User update(@RequestBody User user) throws Exception {
-            return userService.edit(user).get();
+            return userService.edit(user);
 
     }
 }

@@ -1,8 +1,5 @@
 package com.revature.GroupDP2.model;
 
-
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,9 +13,9 @@ import java.util.List;
 public class Product {
 
     @Id
-    @Column(name = "product_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer product_id;
+    private Integer productId;
 
     @Column(name = "product_name")
     private String productName;
@@ -33,9 +30,9 @@ public class Product {
     @JoinColumn
     private Category category;
   
-    @ManyToMany
-    @Column
-    private List<Cart> productCart;
+    //@ManyToMany
+    //@Column
+    //private List<Cart> productCart;
 
 
     public Product(Category category, String productName, String description, Double price) {
@@ -43,25 +40,25 @@ public class Product {
         this.productName = productName;
         this.description = description;
         this.price = price;
-        productCart=new ArrayList<>();
+        //productCart=new ArrayList<>();
     }
     public Product() {
-    productCart=new ArrayList<>();
+    //productCart=new ArrayList<>();
     }
 
     public static void setCategoryId(Integer integer) {
 
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
-    public String getProduct_Name() {
+    public String getProductName() {
         return productName;
     }
 
@@ -93,30 +90,10 @@ public class Product {
         this.category = category;
     }
 
-
-
-
-    public void setId(int id) {
-        this.product_id = id;
-    }
-
-
-    public void setProductId(Integer integer) {
-
-    }
-
-    public void setUserId(String s) {
-
-    }
-
-    public Integer getId() {
+    public Integer getCategoryId() {
         return null;
     }
-
-    public String getProductName() {
-        return productName;
-    }
-
+/*
     public List<Cart> getProductCart() {
         return productCart;
     }
@@ -132,11 +109,8 @@ public class Product {
     public void removeProductCart(Cart cart){
       productCart.remove(cart);
     }
+*/
 
-
-    public Integer getCategoryId() {
-        return null;
-    }
 }
 
 

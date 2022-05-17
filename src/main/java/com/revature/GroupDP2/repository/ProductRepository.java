@@ -60,8 +60,9 @@ public class ProductRepository implements IProductRepository<Product>, Lifecycle
     }
 
     @Override
-    public List<Product> getAll(Product product) {
-        return null;
+    public List<Product> getAll() {
+        TypedQuery<Product> query = session.createQuery("FROM Product", Product.class);
+        return query.getResultList();
     }
 
     @Override
