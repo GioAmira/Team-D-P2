@@ -79,6 +79,17 @@ public class UserRepository implements IUserRepository, Lifecycle {
         }
     }
 
+    public void addCart(Integer cartId, Integer userId){
+        Transaction transaction = session.beginTransaction();
+        TypedQuery<Integer> query = session.createQuery("update User set cart=:cartId where id=:userId");
+        query.setParameter("cartId", cartId);
+        query.setParameter("userId", userId);
+        query.executeUpdate();
+        transaction.commit();
+
+    }
+
+
     @Override
     public void start () {
         session = storageManager.getSession();

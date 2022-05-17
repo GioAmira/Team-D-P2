@@ -27,4 +27,11 @@ public class UserController {
             return userService.edit(user);
 
     }
+
+    @PutMapping("/addCart")
+    public void addCart(@RequestHeader("cartId") Integer cartId, @RequestHeader("userId") Integer userId){
+        userService.addCart(cartId, userId);
+    }
+
+
 }
