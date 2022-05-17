@@ -15,7 +15,7 @@ public class Product {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer product_id;
+    private Integer productId;
 
     @Column(name = "product_name")
     private String productName;
@@ -50,15 +50,15 @@ public class Product {
 
     }
 
-    public Integer getProduct_id() {
-        return product_id;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(Integer product_id) {
-        this.product_id = product_id;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
-    public String getProduct_Name() {
+    public String getProductName() {
         return productName;
     }
 
@@ -90,28 +90,8 @@ public class Product {
         this.category = category;
     }
 
-
-
-
-    public void setId(int id) {
-        this.product_id = id;
-    }
-
-
-    public void setProductId(Integer integer) {
-
-    }
-
-    public void setUserId(String s) {
-
-    }
-
-    public Integer getId() {
+    public Integer getCategoryId() {
         return null;
-    }
-
-    public String getProductName() {
-        return productName;
     }
 /*
     public List<Cart> getProductCart() {
@@ -131,9 +111,6 @@ public class Product {
     }
 */
 
-    public Integer getCategoryId() {
-        return null;
-    }
 }
 
 

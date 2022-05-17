@@ -11,95 +11,65 @@ import java.util.List;
 
 
 @RestController
-@CrossOrigin
-@RequestMapping(path ="/product")
+@RequestMapping("/product")
 public class ProductController {
-    ProductService productService;
-
+    private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productServices) {
-        this.productService = productServices;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
 
     }
 
-    //Get all products
-    @GetMapping("/{productorId}")
+    @GetMapping("/get")
     @ResponseStatus(HttpStatus.OK)
-    public List<Product> getAllProduct() {
-        return productService.getAllProduct;
+    public List<Product> getAll() {
+        return productService.getAll();
     }
 
         //get product by productname
-        @GetMapping("/{productnameorId}")
-        @ResponseStatus(HttpStatus.OK)
-        public String getProduct (@PathVariable String productnameorId, @RequestHeader("mode") String mode) throws
-        Exception {
-        switch (mode) {
-            case "productname":
-                return productService.getProductByProductname(productnameorId);
-            case "id":
-                return (String) productService.getProductById(Integer.parseInt(productnameorId));
-            default:
-                throw new Exception("That's not a valid mode");
-                //TODO: Make this better
-        }
+    @GetMapping("/{productnameorId}")
+    @ResponseStatus(HttpStatus.OK)
+    public String getProduct (@PathVariable String productnameorId, @RequestHeader("mode") String mode) throws
+    Exception {
+    switch (mode) {
+        case "productname":
+            return productService.getProductByProductname(productnameorId);
+        case "id":
+            return (String) productService.getProductById(Integer.parseInt(productnameorId));
+        default:
+            throw new Exception("That's not a valid mode");
+            //TODO: Make this better
+    }
     }
 
-        //post a new product - auto generate the ID
-        @PostMapping()
-        @ResponseStatus(HttpStatus.OK)
-        public void persistNewProduct (@RequestBody Product newProduct){
-            productService.createProduct(newProduct);
-    }
-        @GetMapping("/auth")
-        @ResponseStatus(HttpStatus.OK)
-        public AuthDto authorizeProduct (@RequestBody AuthDto authDto) throws Exception {
-        return productService.authenticateProduct(authDto);
-        //TODO: ResponseEntity<User> use this object to send back a different response for unauthorized
+    //post a new product - auto generate the ID
+    @PostMapping()
+    @ResponseStatus(HttpStatus.OK)
+    public void persistNewProduct (@RequestBody Product newProduct){
+        productService.createProduct(newProduct);
     }
 
-        //put (update) an existing user (based on id)
-        @PutMapping
-        @ResponseStatus(HttpStatus.OK)
-        public void updateProduct (@RequestBody Product product){
-        productService.update(product);
-    }
-        @DeleteMapping
-        @ResponseStatus(HttpStatus.OK)
-        public Product deleteProduct (@RequestBody Product product){
-        return productService.delete(product);
+    @GetMapping("/auth")
+    @ResponseStatus(HttpStatus.OK)
+    public AuthDto authorizeProduct (@RequestBody AuthDto authDto) throws Exception {
+    return productService.authenticateProduct(authDto);
+    //TODO: ResponseEntity<User> use this object to send back a different response for unauthorized
     }
 
-    protected class ProductServices {
-        public List<Product> getAllProduct;
-
-        public String getProductByProductname(String productnameorId) {
-            return productnameorId;
-        }
-
-        public String getProductById(int parseInt) {
-            return null;
-        }
-
-        public Product save(Object persistNewProduct) {
-            return new Product();
-        }
-
-        public void update(Product product) {
-            ;
-        }
-
-        public Product delete(Product product) {
-            return product;
-        }
-
-        public AuthDto authenticateProduct(AuthDto authDto) {
-            return authDto;
-        }
-
-
+    //put (update) an existing user (based on id)
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void updateProduct (@RequestBody Product product){
+    productService.update(product);
     }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public Product deleteProduct (@RequestBody Product product){
+    return productService.delete(product);
+    }
+
 }
 
 
@@ -185,3 +155,35 @@ public abstract class ProductController {
     }
 }
 */
+
+/*
+protected class ProductServices {
+        public List<Product> getAllProduct;
+
+        public String getProductByProductname(String productnameorId) {
+            return productnameorId;
+        }
+
+        public String getProductById(int parseInt) {
+            return null;
+        }
+
+        public Product save(Object persistNewProduct) {
+            return new Product();
+        }
+
+        public void update(Product product) {
+            ;
+        }
+
+        public Product delete(Product product) {
+            return product;
+        }
+
+        public AuthDto authenticateProduct(AuthDto authDto) {
+            return authDto;
+        }
+
+
+    }
+ */
