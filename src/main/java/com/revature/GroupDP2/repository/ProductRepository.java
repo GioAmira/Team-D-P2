@@ -8,11 +8,13 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
+
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
-    @Component
+@Component
 public class ProductRepository implements IProductRepository<Product>, Lifecycle {
 
     private final StorageManager storageManager;
@@ -60,13 +62,28 @@ public class ProductRepository implements IProductRepository<Product>, Lifecycle
     }
 
     @Override
-    public List<Product> getAll(Product product) {
-        return null;
+    public List<Product> getAll() {
+        TypedQuery<Product> query = session.createQuery("FROM Product", Product.class);
+        return query.getResultList();
+    }
+
+    public Product getProductByProductName(String productnameorId) {
+        Transaction transaction = session.beginTransaction();
+         TypedQuery<Product>query = session.createQuery("From Product where productName = : productName");
+        query.setParameter("productName", productnameorId);
+        Product product = query.getSingleResult();
+         transaction .commit();
+         return product;
     }
 
     @Override
-    public Object getById(Integer id) {
-        return null;
+    public Product getById(Integer id) {
+        Transaction transaction = session.beginTransaction();
+        TypedQuery<Product>query = session.createQuery("From Product where productId = : productId");
+        query.setParameter("productId", id);
+        Product product = query.getSingleResult();
+        transaction .commit();
+        return product;
     }
 
     @Override

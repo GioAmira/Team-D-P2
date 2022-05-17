@@ -9,22 +9,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("ProductService")
+@Service
 public class ProductService {
 
-
-    private ProductRepository productRepository;
-    public List<Product> getAllProduct;
+    private final ProductRepository productRepository;
 
     @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
-
-
-    public List<Product> getAllProduct() {
-        return null;
+    public List<Product> getAll() {
+        return productRepository.getAll();
     }
 
     public void createProduct (Product p) {
@@ -37,13 +33,14 @@ public class ProductService {
          productRepository.delete((Product) product);
     }
 
-    public static Object getProductById(Integer id) {
-        return null;
+    public Product getProductById(Integer id) {
+        return productRepository.getById(id);
     }
 
 
-    public String getProductByProductname(String productnameorId) {
-        return null;
+    public Product getProductByProductname(String productnameorId) {
+
+       return productRepository.getProductByProductName(productnameorId);
     }
 
     public AuthDto authenticateProduct(AuthDto authDto) {

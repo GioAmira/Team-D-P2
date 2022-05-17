@@ -7,6 +7,6 @@ public interface IGenericRepository<T> {
     void create(T t);
     void update(T t);
     Optional<T> getById(int t);
-    List<T>getAll(T t);
+    List<T>getAll();
     void delete(T t);
 }

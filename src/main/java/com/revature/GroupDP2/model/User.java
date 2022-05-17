@@ -8,11 +8,10 @@ import java.util.List;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name="username",unique = true)
-
     private String userName;
     @Column(name="password")
     private String password;
@@ -34,7 +33,6 @@ public class User {
     private String state;
     @Column(name="zip_code")
     private String zipCode;
-
 
     @OneToOne
     @JoinColumn(name = "cart_id")

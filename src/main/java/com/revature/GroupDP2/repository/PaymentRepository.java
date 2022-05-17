@@ -110,7 +110,7 @@ public class PaymentRepository implements IPaymentRepository<Payment>, Lifecycle
         return payment;
     }
 
-    public List<Payment> getAll(Payment p) {
+    public List<Payment> getAll() {
         String sql = "SELECT * FROM payment";
         Query query = session.createNativeQuery(sql);
 

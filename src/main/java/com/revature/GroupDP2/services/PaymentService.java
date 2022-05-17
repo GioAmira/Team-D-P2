@@ -36,8 +36,8 @@ public class PaymentService {
         return paymentRepo.getPaymentByCardNumber(payment);
     }
 
-    public List<Payment> getAll(Payment payment) {
-        return paymentRepo.getAll(payment);
+    public List<Payment> getAll() {
+        return paymentRepo.getAll();
     }
 
     public void delete(Payment payment) {

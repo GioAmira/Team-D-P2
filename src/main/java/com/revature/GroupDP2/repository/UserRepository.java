@@ -30,7 +30,7 @@ public class UserRepository implements IUserRepository, Lifecycle {
 
     //fix this later
     @Override
-    public List<User> getAll(User user) {
+    public List<User> getAll() {
         return null;
     }
 
