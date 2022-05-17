@@ -31,9 +31,9 @@ public class CategoryController {
     }
 
     @PatchMapping
-    public void patch(@RequestBody Category category){
+    public void patch(@RequestHeader("id") int id, @RequestBody Category category){
 
-        categoryService.patch(category);
+        categoryService.patch(id, category);
     }
 
     @DeleteMapping
