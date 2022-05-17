@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface IProductRepository<T> extends IGenericRepository<Product> {
 
-    Product getByUserId(int l);
+    T  getByUserId(int l);
 
-    Product getByCategoryId(int l);
+    T getByCategoryId(int l);
 
-    Object getById(Integer id);
+    T getById(Integer id);
 
 
 }
