@@ -1,12 +1,11 @@
 package com.revature.GroupDP2.controllers;
 
-
 import com.revature.GroupDP2.model.Category;
 import com.revature.GroupDP2.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/category")
@@ -31,10 +30,21 @@ public class CategoryController {
         categoryService.update(category);
     }
 
+    @PatchMapping
+    public void patch(@RequestBody Category category){
+
+        categoryService.patch(category);
+    }
+
     @DeleteMapping
     public void delete (@RequestBody Category category){
 
         categoryService.delete(category);
+    }
+
+    @GetMapping("/byId")
+    public Optional<Category> getById(@RequestHeader("id") int t){
+        return categoryService.getById(t);
     }
 
     @GetMapping

@@ -8,10 +8,7 @@ import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.Lifecycle;
 import org.springframework.stereotype.Component;
-
-
 import javax.persistence.TypedQuery;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,9 +30,7 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
 
     @Override
     public void create(Category category) {
-        System.out.println("we are here and maybe session is null");
         if (session != null){
-            System.out.println("category is about to be added");
             Transaction transaction = session.beginTransaction();
             session.save(category);
             transaction.commit();
@@ -57,11 +52,24 @@ public class CategoryRepository implements ICategoryRepository<Category>, Lifecy
         }
     }
 
+    public void patch(Category category){
+        if (session != null){
+            Transaction transaction = session.beginTransaction();
+            session.merge(category);
+            transaction.commit();
+        }
+        else{
+            //throw an exception
+        }
+    }
+
     @Override
     public void delete(Category category) {
         if (session != null){
             Transaction transaction = session.beginTransaction();
-            session.delete(category);
+            TypedQuery<Category> query = session.createQuery("DELETE FROM Category WHERE categoryName = :categoryName");
+            query.setParameter("categoryName",category.getCategoryName());
+            query.executeUpdate();
             transaction.commit();
         }
         else{
