@@ -55,8 +55,20 @@ public class UserService {
         if(!user.getEmail().matches("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$")) {
             throw new InvalidEmailException("email invalid!");
         }
-        oldUser=Optional.of(user);
-        return oldUser.get();
+        User outUser=oldUser.get();
+        outUser.setUserName(user.getUserName());
+        outUser.setPassword(user.getPassword());
+        outUser.setEnabled(user.isEnabled());
+        outUser.setFirstName(user.getFirstName());
+        outUser.setLastName(user.getLastName());
+        outUser.setEmail(user.getEmail());
+        outUser.setPhone(user.getPhone());
+        outUser.setStreetName(user.getStreetName());
+        outUser.setCity(user.getCity());
+        outUser.setState(user.getState());
+        outUser.setZipCode(user.getZipCode());
+        userRepository.update(outUser);
+        return outUser;
     }
         throw new UnableException("update fail!");
     }

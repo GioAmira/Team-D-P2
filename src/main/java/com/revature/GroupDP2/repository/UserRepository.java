@@ -28,7 +28,6 @@ public class UserRepository implements IUserRepository, Lifecycle {
     }
 
 
-    //fix this later
     @Override
     public List<User> getAll() {
         return null;
@@ -48,7 +47,6 @@ public class UserRepository implements IUserRepository, Lifecycle {
         t.commit();
     }
 
-    //maybe we want to return an optional?
     @Override
     public Optional<User> getById(int t) {
         try {

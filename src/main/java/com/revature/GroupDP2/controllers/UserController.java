@@ -33,5 +33,9 @@ public class UserController {
         userService.addCart(cartId, userId);
     }
 
+    @DeleteMapping
+    public User delete(@RequestBody User user) throws Exception{
+        return userService.unRegister(user);
+    }
 
 }
