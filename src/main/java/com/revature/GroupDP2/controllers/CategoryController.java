@@ -27,9 +27,9 @@ public class CategoryController {
     }
 
     @PutMapping
-    public void update(@RequestBody Category category){
+    public void update(@RequestHeader("id") int id, @RequestBody Category category){
 
-        categoryService.update(category);
+        categoryService.update(id, category);
     }
 
     @PatchMapping
