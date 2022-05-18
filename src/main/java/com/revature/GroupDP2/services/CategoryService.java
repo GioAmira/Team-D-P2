@@ -26,9 +26,9 @@ public class CategoryService {
         categoryRepository.update(id, category);
     }
 
-    public void patch(Category category){
+    public void patch(int id, Category category){
 
-        categoryRepository.patch(category);
+        categoryRepository.patch(id, category);
     }
 
     public void delete(Category category){
