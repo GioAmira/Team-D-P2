@@ -27,4 +27,8 @@ public class UserController {
             return userService.edit(user);
 
     }
+    @DeleteMapping
+    public User delete(@RequestBody User user) throws Exception{
+        return userService.unRegester(user);
+    }
 }
