@@ -1,6 +1,7 @@
 package com.revature.GroupDP2.repository;
 
 import com.revature.GroupDP2.Irepository.IUserRepository;
+import com.revature.GroupDP2.model.Cart;
 import com.revature.GroupDP2.util.StorageManager;
 import com.revature.GroupDP2.model.User;
 import org.hibernate.Session;
@@ -79,10 +80,15 @@ public class UserRepository implements IUserRepository, Lifecycle {
 
     public void addCart(Integer cartId, Integer userId){
         Transaction transaction = session.beginTransaction();
-        TypedQuery<Integer> query = session.createQuery("update User set cart=:cartId where id=:userId");
-        query.setParameter("cartId", cartId);
-        query.setParameter("userId", userId);
-        query.executeUpdate();
+        User user = session.get(User.class, userId);
+        System.out.println(user);
+        Cart cart = session.get(Cart.class, cartId);
+        user.setCart(cart);
+        session.merge(user);
+        //TypedQuery<User> query = session.createQuery("update User set cart=:cartId where id=:userId");
+        //query.setParameter("cartId", cartId);
+        //query.setParameter("userId", userId);
+        //query.executeUpdate();
         transaction.commit();
 
     }
