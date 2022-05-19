@@ -81,16 +81,10 @@ public class UserRepository implements IUserRepository, Lifecycle {
     public void addCart(Integer cartId, Integer userId){
         Transaction transaction = session.beginTransaction();
         User user = session.get(User.class, userId);
-        System.out.println(user);
         Cart cart = session.get(Cart.class, cartId);
         user.setCart(cart);
         session.merge(user);
-        //TypedQuery<User> query = session.createQuery("update User set cart=:cartId where id=:userId");
-        //query.setParameter("cartId", cartId);
-        //query.setParameter("userId", userId);
-        //query.executeUpdate();
         transaction.commit();
-
     }
 
 
